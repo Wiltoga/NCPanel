@@ -7,10 +7,6 @@ namespace ExtensionExample
 {
     public class Example : INCPExtension
     {
-        public static void Main()
-        {
-        }
-
         public void Init()
         {
             MessageBox.Show("init");
