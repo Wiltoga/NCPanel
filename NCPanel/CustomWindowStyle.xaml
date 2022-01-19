@@ -37,6 +37,9 @@
     <Style
         TargetType="Button">
         <Setter
+            Property="TextElement.Foreground"
+            Value="White" />
+        <Setter
             Property="Template">
             <Setter.Value>
                 <ControlTemplate
@@ -48,7 +51,6 @@
                         <ContentPresenter
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            TextElement.Foreground="White"
                             Content="{TemplateBinding Content}" />
                     </Border>
                     <ControlTemplate.Triggers>
