@@ -132,7 +132,7 @@
             <Setter.Value>
                 <WindowChrome
                     CaptionHeight="32"
-                    ResizeBorderThickness="8"
+                    ResizeBorderThickness="10"
                     NonClientFrameEdges="None" />
             </Setter.Value>
         </Setter>
@@ -153,10 +153,10 @@
                                 EndPoint="1,.1">
                                 <GradientStop
                                     Color="{StaticResource BackgroundAccent}"
-                                    Offset="0" />
+                                    Offset=".1" />
                                 <GradientStop
                                     Color="{StaticResource Background}"
-                                    Offset="1" />
+                                    Offset=".9" />
                             </LinearGradientBrush>
                         </Border.Background>
                         <DockPanel
