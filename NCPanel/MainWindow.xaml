@@ -26,6 +26,7 @@
                         DockPanel.Dock="Bottom"
                         Orientation="Vertical">
                         <Button
+                            ToolTip="Open settings"
                             Margin="8"
                             Width="80"
                             Height="80">
@@ -90,6 +91,7 @@
                     <StackPanel
                         Orientation="Vertical">
                         <Button
+                            ToolTip="Create a new button"
                             Margin="8"
                             Width="80"
                             Height="80">
@@ -176,6 +178,7 @@
                                             Height="*" />
                                     </Grid.RowDefinitions>
                                     <Button
+                                        ToolTip="Grid layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="5,0,0,0"
                                         Grid.Column="0"
                                         Grid.Row="0">
@@ -228,6 +231,7 @@
                                         </Rectangle>
                                     </Button>
                                     <Button
+                                        ToolTip="Detail layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,5,0,0"
                                         Grid.Column="1"
                                         Grid.Row="0">
@@ -280,6 +284,7 @@
                                         </Rectangle>
                                     </Button>
                                     <Button
+                                        ToolTip="List layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,0,0,5"
                                         Grid.Column="0"
                                         Grid.Row="1">
@@ -332,6 +337,7 @@
                                         </Rectangle>
                                     </Button>
                                     <Button
+                                        ToolTip="Card layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,0,5,0"
                                         Grid.Column="1"
                                         Grid.Row="1">

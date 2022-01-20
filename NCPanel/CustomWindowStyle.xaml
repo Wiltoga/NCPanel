@@ -118,6 +118,41 @@
         </Setter>
     </Style>
     <Style
+        TargetType="ToolTip">
+        <Setter
+            Property="OverridesDefaultStyle"
+            Value="True" />
+        <Setter
+            Property="HasDropShadow"
+            Value="True" />
+        <Setter
+            Property="TextElement.Foreground"
+            Value="White" />
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="ToolTip">
+                    <Border
+                        CornerRadius="6"
+                        Padding="12,6"
+                        BorderThickness="1">
+                        <Border.BorderBrush>
+                            <SolidColorBrush
+                                Color="{StaticResource Border}" />
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush
+                                Color="{StaticResource BackgroundAccent}" />
+                        </Border.Background>
+                        <ContentPresenter
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
         x:Key="CustomWindow"
         TargetType="Window">
         <Setter
