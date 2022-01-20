@@ -1,4 +1,5 @@
 ﻿using NCPExtension;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,12 +23,37 @@ namespace NCPanel
     public partial class MainWindow : Window
     {
         private const int MaxCursorDistanceToLeave = 200;
+        private bool lockOpenedSizes;
+        private double OpenedHeight;
+        private double OpenedWith;
 
         public MainWindow()
         {
             InitializeComponent();
+            lockOpenedSizes = false;
+            OpenedWith = Width;
+            OpenedHeight = Height;
+
+            ViewModel.WhenAnyValue(vm => vm.Open).Subscribe(opened =>
+            {
+                lockOpenedSizes = true;
+                if (opened)
+                {
+                    Width = OpenedWith;
+                    Height = OpenedHeight;
+                }
+                else
+                {
+                    Width = 48;
+                    Height = 250;
+                }
+                lockOpenedSizes = false;
+            });
+
             var timer = new DispatcherTimer(DispatcherPriority.Normal, Dispatcher)
-            { Interval = TimeSpan.FromMilliseconds(100) };
+            {
+                Interval = TimeSpan.FromMilliseconds(40)
+            };
             timer.Tick += (sender, e) =>
             {
                 if (!ViewModel.Open)
@@ -96,5 +122,15 @@ namespace NCPanel
         }
 
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            if (!lockOpenedSizes)
+            {
+                OpenedWith = Width;
+                OpenedHeight = Height;
+            }
+        }
     }
 }

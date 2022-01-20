@@ -9,6 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="icons\settings.png" />
+    <None Remove="icons\settings_hover.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icons\settings.png" />
+    <Resource Include="icons\settings_hover.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DynamicData" Version="7.4.9" />
     <PackageReference Include="ReactiveUI" Version="17.1.17" />
     <PackageReference Include="ReactiveUI.Fody" Version="17.1.17" />

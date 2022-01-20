@@ -40,6 +40,9 @@
             Property="TextElement.Foreground"
             Value="White" />
         <Setter
+            Property="Border.CornerRadius"
+            Value="5" />
+        <Setter
             Property="Template">
             <Setter.Value>
                 <ControlTemplate
@@ -47,8 +50,9 @@
                     <Border
                         Background="#01000000"
                         Name="background"
-                        CornerRadius="5">
+                        CornerRadius="{TemplateBinding Property=Border.CornerRadius}">
                         <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Content="{TemplateBinding Content}" />
@@ -88,6 +92,7 @@
                         Name="background"
                         CornerRadius="5">
                         <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             TextElement.Foreground="White"
@@ -131,8 +136,8 @@
             Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome
-                    CaptionHeight="32"
-                    ResizeBorderThickness="10"
+                    CaptionHeight="40"
+                    ResizeBorderThickness="8"
                     NonClientFrameEdges="None" />
             </Setter.Value>
         </Setter>
@@ -162,9 +167,9 @@
                         <DockPanel
                             Name="panel">
                             <DockPanel
+                                Margin="0,0,0,16"
                                 Name="titlebar"
                                 Height="32"
-                                Background="#08ffffff"
                                 DockPanel.Dock="Top">
                                 <StackPanel
                                     TextElement.FontSize="10"
@@ -199,7 +204,7 @@
                                 </StackPanel>
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Margin="10,0"
+                                    Margin="16,16,0,0"
                                     Text="{TemplateBinding Title}"
                                     FontSize="16" />
                             </DockPanel>

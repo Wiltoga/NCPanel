@@ -4,11 +4,126 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NCPanel"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="NCPanel"
         Height="450"
         Width="800"
+        d:Background="#222"
         local:CustomWindowStyle.HideTitleBar="{Binding Open, Converter={local:ReverseBoolConverter}}">
+    <Window.DataContext>
+        <local:MainWindowViewModel
+            d:Open="True" />
+    </Window.DataContext>
+    <Window.Resources>
+        <ControlTemplate
+            TargetType="Control"
+            x:Key="OpenContent">
+            <DockPanel>
+                <DockPanel
+                    DockPanel.Dock="Left">
+                    <StackPanel
+                        DockPanel.Dock="Bottom"
+                        Orientation="Vertical">
+                        <Button
+                            Margin="8"
+                            Padding="16">
+                            <StackPanel
+                                Orientation="Vertical">
+                                <Rectangle
+                                    Height="32"
+                                    Width="32"
+                                    Margin="5">
+                                    <Rectangle.Style>
+                                        <Style
+                                            TargetType="Rectangle">
+                                            <Setter
+                                                Property="Fill"
+                                                Value="White" />
+                                            <Setter
+                                                Property="OpacityMask">
+                                                <Setter.Value>
+                                                    <VisualBrush
+                                                        Viewport="0,0,1,1">
+                                                        <VisualBrush.Visual>
+                                                            <Image
+                                                                Stretch="None"
+                                                                Source="/icons/settings.png" />
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                    Value="True">
+                                                    <Setter
+                                                        Property="Fill"
+                                                        Value="{StaticResource MainColor}" />
+                                                    <Setter
+                                                        Property="OpacityMask">
+                                                        <Setter.Value>
+                                                            <VisualBrush
+                                                                Viewport="0,0,1,1">
+                                                                <VisualBrush.Visual>
+                                                                    <Image
+                                                                        Stretch="None"
+                                                                        Source="/icons/settings_hover.png" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <TextBlock
+                                    Margin="5"
+                                    Text="Settings">
+                                    <TextBlock.Style>
+                                        <Style
+                                            TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                    Value="True">
+                                                    <Setter
+                                                        Property="Foreground"
+                                                        Value="{StaticResource MainColor}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel
+                        Orientation="Vertical">
+                    </StackPanel>
+                </DockPanel>
+                <Border
+                    CornerRadius="16,0,0,0"
+                    Background="#08ffffff">
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <ControlTemplate
+            TargetType="Control"
+            x:Key="ClosedContent">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Text="NCPanel">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform
+                        Angle="90" />
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+        </ControlTemplate>
+    </Window.Resources>
     <Window.Style>
         <Style
             TargetType="Window"
@@ -21,16 +136,31 @@
                         Property="ResizeMode"
                         Value="NoResize" />
                     <Setter
+                        Property="WindowChrome.WindowChrome"
+                        Value="{x:Null}" />
+                    <Setter
                         Property="WindowStyle"
                         Value="None" />
                     <Setter
-                        Property="WindowChrome.WindowChrome"
-                        Value="{x:Null}" />
+                        Property="Content">
+                        <Setter.Value>
+                            <Control
+                                Template="{StaticResource ClosedContent}" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Open}"
+                    Value="True">
+                    <Setter
+                        Property="Content">
+                        <Setter.Value>
+                            <Control
+                                Template="{StaticResource OpenContent}" />
+                        </Setter.Value>
+                    </Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Style>
-    <Window.DataContext>
-        <local:MainWindowViewModel />
-    </Window.DataContext>
 </Window>

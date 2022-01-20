@@ -8,6 +8,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="CustomWindowStyle.xaml" />
+                <ResourceDictionary>
+                    <SolidColorBrush
+                        x:Key="MainColor">#46aEdE</SolidColorBrush>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
