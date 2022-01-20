@@ -8,5 +8,29 @@
         Title="NCPanel"
         Height="450"
         Width="800"
-        Style="{StaticResource CustomWindow}">
+        local:CustomWindowStyle.HideTitleBar="{Binding Open, Converter={local:ReverseBoolConverter}}">
+    <Window.Style>
+        <Style
+            TargetType="Window"
+            BasedOn="{StaticResource CustomWindow}">
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding Open}"
+                    Value="False">
+                    <Setter
+                        Property="ResizeMode"
+                        Value="NoResize" />
+                    <Setter
+                        Property="WindowStyle"
+                        Value="None" />
+                    <Setter
+                        Property="WindowChrome.WindowChrome"
+                        Value="{x:Null}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
 </Window>
