@@ -10,7 +10,7 @@
                     Source="CustomWindowStyle.xaml" />
                 <ResourceDictionary>
                     <SolidColorBrush
-                        x:Key="MainColor">#46aEdE</SolidColorBrush>
+                        x:Key="MainColor">#4CC2FF</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
