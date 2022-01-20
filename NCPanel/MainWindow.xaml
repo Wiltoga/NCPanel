@@ -81,6 +81,7 @@
                                     </Rectangle.Style>
                                 </Rectangle>
                                 <TextBlock
+                                    HorizontalAlignment="Center"
                                     Margin="5"
                                     Text="Settings" />
                             </StackPanel>
@@ -88,6 +89,303 @@
                     </StackPanel>
                     <StackPanel
                         Orientation="Vertical">
+                        <Button
+                            Margin="8"
+                            Width="80"
+                            Height="80">
+                            <StackPanel
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <Rectangle
+                                    Height="32"
+                                    Width="32"
+                                    Margin="5">
+                                    <Rectangle.Style>
+                                        <Style
+                                            TargetType="Rectangle">
+                                            <Setter
+                                                Property="Fill"
+                                                Value="White" />
+                                            <Setter
+                                                Property="OpacityMask">
+                                                <Setter.Value>
+                                                    <VisualBrush
+                                                        Viewport="0,0,1,1">
+                                                        <VisualBrush.Visual>
+                                                            <Image
+                                                                Stretch="None"
+                                                                Source="/icons/new.png" />
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                    Value="True">
+                                                    <Setter
+                                                        Property="Fill"
+                                                        Value="{StaticResource MainColor}" />
+                                                    <Setter
+                                                        Property="OpacityMask">
+                                                        <Setter.Value>
+                                                            <VisualBrush
+                                                                Viewport="0,0,1,1">
+                                                                <VisualBrush.Visual>
+                                                                    <Image
+                                                                        Stretch="None"
+                                                                        Source="/icons/new_hover.png" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Margin="5"
+                                    Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Margin="8"
+                            Width="80"
+                            Height="80">
+                            <DockPanel>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Margin="5"
+                                    Text="Layout"
+                                    DockPanel.Dock="Bottom" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="*" />
+                                        <ColumnDefinition
+                                            Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="*" />
+                                        <RowDefinition
+                                            Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Button
+                                        local:CustomWindowStyle.ButtonCornerRadius="5,0,0,0"
+                                        Grid.Column="0"
+                                        Grid.Row="0">
+                                        <Rectangle
+                                            Height="16"
+                                            Width="16">
+                                            <Rectangle.Style>
+                                                <Style
+                                                    TargetType="Rectangle">
+                                                    <Setter
+                                                        Property="Fill"
+                                                        Value="White" />
+                                                    <Setter
+                                                        Property="OpacityMask">
+                                                        <Setter.Value>
+                                                            <VisualBrush
+                                                                Viewport="0,0,1,1">
+                                                                <VisualBrush.Visual>
+                                                                    <Image
+                                                                        Stretch="None"
+                                                                        Source="/icons/grid_layout.png" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/grid_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                    </Button>
+                                    <Button
+                                        local:CustomWindowStyle.ButtonCornerRadius="0,5,0,0"
+                                        Grid.Column="1"
+                                        Grid.Row="0">
+                                        <Rectangle
+                                            Height="16"
+                                            Width="16">
+                                            <Rectangle.Style>
+                                                <Style
+                                                    TargetType="Rectangle">
+                                                    <Setter
+                                                        Property="Fill"
+                                                        Value="White" />
+                                                    <Setter
+                                                        Property="OpacityMask">
+                                                        <Setter.Value>
+                                                            <VisualBrush
+                                                                Viewport="0,0,1,1">
+                                                                <VisualBrush.Visual>
+                                                                    <Image
+                                                                        Stretch="None"
+                                                                        Source="/icons/detail_layout.png" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/detail_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                    </Button>
+                                    <Button
+                                        local:CustomWindowStyle.ButtonCornerRadius="0,0,0,5"
+                                        Grid.Column="0"
+                                        Grid.Row="1">
+                                        <Rectangle
+                                            Height="16"
+                                            Width="16">
+                                            <Rectangle.Style>
+                                                <Style
+                                                    TargetType="Rectangle">
+                                                    <Setter
+                                                        Property="Fill"
+                                                        Value="White" />
+                                                    <Setter
+                                                        Property="OpacityMask">
+                                                        <Setter.Value>
+                                                            <VisualBrush
+                                                                Viewport="0,0,1,1">
+                                                                <VisualBrush.Visual>
+                                                                    <Image
+                                                                        Stretch="None"
+                                                                        Source="/icons/list_layout.png" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/list_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                    </Button>
+                                    <Button
+                                        local:CustomWindowStyle.ButtonCornerRadius="0,0,5,0"
+                                        Grid.Column="1"
+                                        Grid.Row="1">
+                                        <Rectangle
+                                            Height="16"
+                                            Width="16">
+                                            <Rectangle.Style>
+                                                <Style
+                                                    TargetType="Rectangle">
+                                                    <Setter
+                                                        Property="Fill"
+                                                        Value="White" />
+                                                    <Setter
+                                                        Property="OpacityMask">
+                                                        <Setter.Value>
+                                                            <VisualBrush
+                                                                Viewport="0,0,1,1">
+                                                                <VisualBrush.Visual>
+                                                                    <Image
+                                                                        Stretch="None"
+                                                                        Source="/icons/card_layout.png" />
+                                                                </VisualBrush.Visual>
+                                                            </VisualBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/card_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                    </Button>
+                                </Grid>
+                            </DockPanel>
+                        </Button>
                     </StackPanel>
                 </DockPanel>
                 <Border

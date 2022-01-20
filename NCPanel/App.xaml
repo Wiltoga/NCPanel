@@ -9,8 +9,17 @@
                 <ResourceDictionary
                     Source="CustomWindowStyle.xaml" />
                 <ResourceDictionary>
-                    <SolidColorBrush
-                        x:Key="MainColor">#4CC2FF</SolidColorBrush>
+                    <LinearGradientBrush
+                        StartPoint="0,0"
+                        EndPoint="1,1"
+                        x:Key="MainColor">
+                        <GradientStop
+                            Offset="0"
+                            Color="#D195FD" />
+                        <GradientStop
+                            Offset="2"
+                            Color="#4520A9" />
+                    </LinearGradientBrush>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
