@@ -40,9 +40,6 @@
             Property="TextElement.Foreground"
             Value="White" />
         <Setter
-            Property="Border.CornerRadius"
-            Value="5" />
-        <Setter
             Property="Template">
             <Setter.Value>
                 <ControlTemplate
@@ -50,7 +47,7 @@
                     <Border
                         Background="#01000000"
                         Name="background"
-                        CornerRadius="{TemplateBinding Property=Border.CornerRadius}">
+                        CornerRadius="{Binding Path=(local:CustomWindowStyle.ButtonCornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                         <ContentPresenter
                             Margin="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

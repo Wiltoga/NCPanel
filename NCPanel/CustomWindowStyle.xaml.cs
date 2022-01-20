@@ -20,11 +20,22 @@ namespace NCPanel
     /// </summary>
     public partial class CustomWindowStyle : ResourceDictionary
     {
+        public static readonly DependencyProperty ButtonCornerRadiusProperty = DependencyProperty.RegisterAttached("ButtonCornerRadius", typeof(CornerRadius), typeof(CustomWindowStyle), new FrameworkPropertyMetadata(new CornerRadius(5), FrameworkPropertyMetadataOptions.AffectsRender));
         public static readonly DependencyProperty HideTitleBarProperty = DependencyProperty.RegisterAttached("HideTitleBar", typeof(bool), typeof(CustomWindowStyle), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+
+        public static CornerRadius GetButtonCornerRadius(DependencyObject element)
+        {
+            return (CornerRadius)element.GetValue(ButtonCornerRadiusProperty);
+        }
 
         public static bool GetHideTitleBar(DependencyObject element)
         {
             return (bool)element.GetValue(HideTitleBarProperty);
+        }
+
+        public static void SetButtonCornerRadius(DependencyObject element, CornerRadius value)
+        {
+            element.SetValue(ButtonCornerRadiusProperty, value);
         }
 
         public static void SetHideTitleBar(DependencyObject element, bool value)

@@ -33,17 +33,23 @@ namespace NCPanel
             lockOpenedSizes = false;
             OpenedWith = Width;
             OpenedHeight = Height;
+            MinHeight = 350;
+            MinWidth = 250;
 
             ViewModel.WhenAnyValue(vm => vm.Open).Subscribe(opened =>
             {
                 lockOpenedSizes = true;
                 if (opened)
                 {
+                    MinHeight = 350;
+                    MinWidth = 250;
                     Width = OpenedWith;
                     Height = OpenedHeight;
                 }
                 else
                 {
+                    MinHeight = 0;
+                    MinWidth = 0;
                     Width = 48;
                     Height = 250;
                 }
