@@ -126,7 +126,7 @@ namespace NCPanel
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
-            if (!lockOpenedSizes)
+            if (!lockOpenedSizes && ViewModel.Open)
             {
                 OpenedWith = Width;
                 OpenedHeight = Height;
