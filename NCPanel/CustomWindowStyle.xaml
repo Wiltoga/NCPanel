@@ -87,7 +87,7 @@
                     <Border
                         Background="#01000000"
                         Name="background"
-                        CornerRadius="5">
+                        CornerRadius="0,0,0,5">
                         <ContentPresenter
                             Margin="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -173,6 +173,7 @@
                                     Orientation="Horizontal"
                                     DockPanel.Dock="Right">
                                     <Button
+                                        local:CustomWindowStyle.ButtonCornerRadius="0,0,5,5"
                                         Click="MinimizeButton_Click"
                                         FontFamily="Segoe MDL2 Assets"
                                         Content="{StaticResource Minimize}"
@@ -181,6 +182,7 @@
                                         Width="48"
                                         WindowChrome.IsHitTestVisibleInChrome="True" />
                                     <Button
+                                        local:CustomWindowStyle.ButtonCornerRadius="0,0,5,5"
                                         Click="MaximizeButton_Click"
                                         Name="maximizeButton"
                                         FontFamily="Segoe MDL2 Assets"
