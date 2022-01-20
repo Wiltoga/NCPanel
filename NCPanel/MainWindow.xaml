@@ -80,22 +80,7 @@
                                 </Rectangle>
                                 <TextBlock
                                     Margin="5"
-                                    Text="Settings">
-                                    <TextBlock.Style>
-                                        <Style
-                                            TargetType="TextBlock">
-                                            <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
-                                                    Value="True">
-                                                    <Setter
-                                                        Property="Foreground"
-                                                        Value="{StaticResource MainColor}" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
+                                    Text="Settings" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
