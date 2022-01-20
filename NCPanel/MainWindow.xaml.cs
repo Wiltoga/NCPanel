@@ -58,16 +58,11 @@ namespace NCPanel
 
             var timer = new DispatcherTimer(DispatcherPriority.Normal, Dispatcher)
             {
-                Interval = TimeSpan.FromMilliseconds(40)
+                Interval = TimeSpan.FromMilliseconds(100)
             };
             timer.Tick += (sender, e) =>
             {
-                if (!ViewModel.Open)
-                {
-                    if (IsMouseOver)
-                        ViewModel.Open = true;
-                }
-                else if (WindowState != WindowState.Maximized)
+                if (ViewModel.Open && WindowState != WindowState.Maximized)
                 {
                     var mousePos = Control.MousePosition;
                     if (mousePos.X < Left && mousePos.Y < Top)
@@ -128,6 +123,12 @@ namespace NCPanel
         }
 
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+
+        protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
+        {
+            base.OnMouseEnter(e);
+            ViewModel.Open = true;
+        }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
