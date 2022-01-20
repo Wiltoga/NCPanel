@@ -9,7 +9,7 @@
         Title="NCPanel"
         Height="450"
         Width="800"
-        d:Background="#222"
+        d:Background="#272C31"
         local:CustomWindowStyle.HideTitleBar="{Binding Open, Converter={local:ReverseBoolConverter}}">
     <Window.DataContext>
         <local:MainWindowViewModel
