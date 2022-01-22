@@ -101,6 +101,20 @@
                         Background="#01000000">
                         <DockPanel
                             Margin="5,0">
+                            <DockPanel.Style>
+                                <Style
+                                    TargetType="DockPanel">
+                                    <Style.Triggers>
+                                        <Trigger
+                                            Property="IsEnabled"
+                                            Value="False">
+                                            <Setter
+                                                Property="Opacity"
+                                                Value=".5" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DockPanel.Style>
                             <ContentPresenter
                                 DockPanel.Dock="Left"
                                 Width="24"
