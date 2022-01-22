@@ -35,6 +35,112 @@
         #202830
     </Color>
     <Style
+        TargetType="RadioButton">
+        <Setter
+            Property="TextElement.Foreground"
+            Value="White" />
+        <Setter
+            Property="VerticalContentAlignment"
+            Value="Center" />
+        <Setter
+            Property="HorizontalContentAlignment"
+            Value="Center" />
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="RadioButton">
+                    <Border
+                        Background="#01000000"
+                        Name="background"
+                        CornerRadius="{Binding Path=(local:CustomWindowStyle.ButtonCornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                        <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsChecked"
+                            Value="True">
+                            <Setter
+                                TargetName="background"
+                                Property="Background"
+                                Value="#3fff" />
+                        </Trigger>
+                        <Trigger
+                            Property="IsMouseOver"
+                            Value="True">
+                            <Setter
+                                TargetName="background"
+                                Property="Background"
+                                Value="#1fff" />
+                        </Trigger>
+                        <Trigger
+                            Property="IsPressed"
+                            Value="True">
+                            <Setter
+                                TargetName="background"
+                                Property="Background"
+                                Value="#2fff" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
+        TargetType="ToggleButton">
+        <Setter
+            Property="TextElement.Foreground"
+            Value="White" />
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="ToggleButton">
+                    <Border
+                        Background="#01000000"
+                        Name="background"
+                        CornerRadius="{Binding Path=(local:CustomWindowStyle.ButtonCornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                        <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsChecked"
+                            Value="True">
+                            <Setter
+                                TargetName="background"
+                                Property="Background"
+                                Value="#3fff" />
+                        </Trigger>
+                        <Trigger
+                            Property="IsMouseOver"
+                            Value="True">
+                            <Setter
+                                TargetName="background"
+                                Property="Background"
+                                Value="#1fff" />
+                        </Trigger>
+                        <Trigger
+                            Property="IsPressed"
+                            Value="True">
+                            <Setter
+                                TargetName="background"
+                                Property="Background"
+                                Value="#2fff" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
         TargetType="Button">
         <Setter
             Property="TextElement.Foreground"

@@ -10,6 +10,7 @@
         Height="450"
         Width="800"
         d:Background="#272C31"
+        Topmost="True"
         local:CustomWindowStyle.HideTitleBar="{Binding Open, Converter={local:ReverseBoolConverter}}">
     <Window.DataContext>
         <local:MainWindowViewModel
@@ -177,7 +178,7 @@
                                         <RowDefinition
                                             Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Button
+                                    <RadioButton
                                         ToolTip="Grid layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="5,0,0,0"
                                         Grid.Column="0"
@@ -206,7 +207,27 @@
                                                     </Setter>
                                                     <Style.Triggers>
                                                         <DataTrigger
-                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/grid_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsChecked}"
                                                             Value="True">
                                                             <Setter
                                                                 Property="Fill"
@@ -229,8 +250,8 @@
                                                 </Style>
                                             </Rectangle.Style>
                                         </Rectangle>
-                                    </Button>
-                                    <Button
+                                    </RadioButton>
+                                    <RadioButton
                                         ToolTip="Detail layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,5,0,0"
                                         Grid.Column="1"
@@ -259,7 +280,27 @@
                                                     </Setter>
                                                     <Style.Triggers>
                                                         <DataTrigger
-                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/detail_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsChecked}"
                                                             Value="True">
                                                             <Setter
                                                                 Property="Fill"
@@ -282,8 +323,8 @@
                                                 </Style>
                                             </Rectangle.Style>
                                         </Rectangle>
-                                    </Button>
-                                    <Button
+                                    </RadioButton>
+                                    <RadioButton
                                         ToolTip="List layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,0,0,5"
                                         Grid.Column="0"
@@ -312,7 +353,27 @@
                                                     </Setter>
                                                     <Style.Triggers>
                                                         <DataTrigger
-                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/list_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsChecked}"
                                                             Value="True">
                                                             <Setter
                                                                 Property="Fill"
@@ -335,8 +396,8 @@
                                                 </Style>
                                             </Rectangle.Style>
                                         </Rectangle>
-                                    </Button>
-                                    <Button
+                                    </RadioButton>
+                                    <RadioButton
                                         ToolTip="Card layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,0,5,0"
                                         Grid.Column="1"
@@ -365,7 +426,27 @@
                                                     </Setter>
                                                     <Style.Triggers>
                                                         <DataTrigger
-                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsMouseOver}"
+                                                            Value="True">
+                                                            <Setter
+                                                                Property="Fill"
+                                                                Value="{StaticResource MainColor}" />
+                                                            <Setter
+                                                                Property="OpacityMask">
+                                                                <Setter.Value>
+                                                                    <VisualBrush
+                                                                        Viewport="0,0,1,1">
+                                                                        <VisualBrush.Visual>
+                                                                            <Image
+                                                                                Stretch="None"
+                                                                                Source="/icons/card_layout_hover.png" />
+                                                                        </VisualBrush.Visual>
+                                                                    </VisualBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=IsChecked}"
                                                             Value="True">
                                                             <Setter
                                                                 Property="Fill"
@@ -388,7 +469,7 @@
                                                 </Style>
                                             </Rectangle.Style>
                                         </Rectangle>
-                                    </Button>
+                                    </RadioButton>
                                 </Grid>
                             </DockPanel>
                         </Button>
