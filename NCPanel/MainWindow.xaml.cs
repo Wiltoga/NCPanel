@@ -173,11 +173,45 @@ namespace NCPanel
         }
 
         private IntPtr Handle { get; }
+
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
 
         protected override void OnLocationChanged(EventArgs e)
         {
             base.OnLocationChanged(e);
+            ParsePosition();
+        }
+
+        protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
+        {
+            base.OnMouseEnter(e);
+            ViewModel.Open = true;
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            if (!lockOpenedSizes && ViewModel.Open)
+            {
+                OpenedWith = Width;
+                OpenedHeight = Height;
+            }
+            ParsePosition();
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            base.OnStateChanged(e);
+            ParsePosition();
+        }
+
+        private void ParsePosition()
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                ViewModel.ExtensionMode = ExtensionMode.Maximized;
+                return;
+            }
             var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
             var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
             var safeArea = new Rect(
@@ -203,31 +237,6 @@ namespace NCPanel
                 middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
                 && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
                 ViewModel.ExtensionMode = ExtensionMode.BottomRight;
-        }
-
-        protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
-        {
-            base.OnMouseEnter(e);
-            ViewModel.Open = true;
-        }
-
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            base.OnRenderSizeChanged(sizeInfo);
-            if (!lockOpenedSizes && ViewModel.Open)
-            {
-                OpenedWith = Width;
-                OpenedHeight = Height;
-            }
-        }
-
-        protected override void OnStateChanged(EventArgs e)
-        {
-            base.OnStateChanged(e);
-            if (WindowState == WindowState.Maximized)
-            {
-                ViewModel.ExtensionMode = ExtensionMode.Maximized;
-            }
         }
     }
 }

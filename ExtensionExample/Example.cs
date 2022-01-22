@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace ExtensionExample
 {
-    public class Example : INCPExtension
+    public class Example : INCPCommand
     {
         public void Init()
         {

@@ -16,6 +16,7 @@ namespace NCPanel
         static App()
         {
             PluginLoader = new PluginLoader();
+            var t = new CommandWrapperViewModel(new CommandViewModel(), null);
         }
 
         public static PluginLoader PluginLoader { get; }
