@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace NCPanel
@@ -63,7 +64,10 @@ namespace NCPanel
                         image.EndInit();
                     }
                     image.Freeze();
-                    Visual = image;
+                    Visual = new Image
+                    {
+                        Source = image
+                    };
                 }
             }
         }
