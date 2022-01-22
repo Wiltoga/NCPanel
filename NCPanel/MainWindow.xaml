@@ -17,6 +17,8 @@
             d:Open="True" />
     </Window.DataContext>
     <Window.Resources>
+        <local:EqualsConverter
+            x:Key="EqualsConverter" />
         <ControlTemplate
             TargetType="Control"
             x:Key="OpenContent">
@@ -179,6 +181,7 @@
                                             Height="*" />
                                     </Grid.RowDefinitions>
                                     <RadioButton
+                                        IsChecked="{Binding Path=Layout, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static local:Layout.Grid}}"
                                         ToolTip="Grid layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="5,0,0,0"
                                         Grid.Column="0"
@@ -252,6 +255,7 @@
                                         </Rectangle>
                                     </RadioButton>
                                     <RadioButton
+                                        IsChecked="{Binding Path=Layout, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static local:Layout.Detail}}"
                                         ToolTip="Detail layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,5,0,0"
                                         Grid.Column="1"
@@ -325,6 +329,7 @@
                                         </Rectangle>
                                     </RadioButton>
                                     <RadioButton
+                                        IsChecked="{Binding Path=Layout, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static local:Layout.List}}"
                                         ToolTip="List layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,0,0,5"
                                         Grid.Column="0"
@@ -398,6 +403,7 @@
                                         </Rectangle>
                                     </RadioButton>
                                     <RadioButton
+                                        IsChecked="{Binding Path=Layout, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static local:Layout.Card}}"
                                         ToolTip="Card layout"
                                         local:CustomWindowStyle.ButtonCornerRadius="0,0,5,0"
                                         Grid.Column="1"

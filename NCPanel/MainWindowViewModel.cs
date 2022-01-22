@@ -13,7 +13,11 @@ namespace NCPanel
         public MainWindowViewModel()
         {
             Open = true;
+            Layout = Layout.Grid;
         }
+
+        [Reactive]
+        public Layout Layout { get; set; }
 
         [Reactive]
         public bool Open { get; set; }
