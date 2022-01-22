@@ -743,7 +743,7 @@
                                                             Grid.ColumnSpan="2"
                                                             Grid.RowSpan="3"
                                                             Grid.Row="3"
-                                                            CornerRadius="0,0,5,0"
+                                                            CornerRadius="0,0,0,5"
                                                             Background="White">
                                                             <Border.Style>
                                                                 <Style
