@@ -33,7 +33,7 @@ namespace NCPanel
             lockOpenedSizes = false;
             OpenedWith = Width;
             OpenedHeight = Height;
-            MinHeight = 350;
+            MinHeight = 250;
             MinWidth = 250;
             Handle = new WindowInteropHelper(this).Handle;
 
@@ -42,7 +42,7 @@ namespace NCPanel
                 lockOpenedSizes = true;
                 if (opened)
                 {
-                    MinHeight = 350;
+                    MinHeight = 250;
                     MinWidth = 250;
                     Width = OpenedWith;
                     Height = OpenedHeight;
