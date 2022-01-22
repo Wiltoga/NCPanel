@@ -82,6 +82,9 @@
         x:Key="basicMenuItem"
         TargetType="MenuItem">
         <Setter
+            Property="Command"
+            Value="{Binding Path=Source.Run}" />
+        <Setter
             Property="Icon"
             Value="{Binding Path=Visual}" />
         <Setter
