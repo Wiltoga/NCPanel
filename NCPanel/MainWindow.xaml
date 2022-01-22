@@ -840,6 +840,22 @@
                 <Border
                     CornerRadius="16,0,0,0"
                     Background="#08ffffff">
+                    <ScrollViewer
+                        Margin="10"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl
+                            ItemTemplate="{StaticResource GridLayoutCommand}"
+                            ItemsSource="{Binding Path=Commands}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel
+                                        Orientation="Horizontal"
+                                        IsItemsHost="True" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
                 </Border>
             </DockPanel>
         </ControlTemplate>

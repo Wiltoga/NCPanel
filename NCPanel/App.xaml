@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="CustomWindowStyle.xaml" />
+                <ResourceDictionary
+                    Source="Layouts.xaml" />
                 <ResourceDictionary>
                     <LinearGradientBrush
                         StartPoint="0,0"
