@@ -50,9 +50,20 @@
                         </Border.BorderBrush>
                         <Border.Background>
                             <SolidColorBrush
-                                Color="{StaticResource BackgroundAccent}" />
+                                Color="{StaticResource Background}" />
                         </Border.Background>
-                        <ItemsPresenter />
+                        <Grid>
+                            <Rectangle
+                                HorizontalAlignment="Left"
+                                Width="1"
+                                Margin="35,4">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush
+                                        Color="{StaticResource Border}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <ItemsPresenter />
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -77,18 +88,20 @@
                     TargetType="MenuItem">
                     <Border
                         CornerRadius="5"
-                        x:Name="back">
-                        <DockPanel>
+                        x:Name="back"
+                        Background="#01000000">
+                        <DockPanel
+                            Margin="5,0">
                             <ContentPresenter
                                 DockPanel.Dock="Left"
-                                Width="16"
-                                Height="16"
-                                Margin="2"
+                                Width="24"
+                                Height="24"
+                                Margin="3"
                                 Content="{TemplateBinding Icon}" />
                             <Label
                                 FontSize="14"
                                 Foreground="White"
-                                Margin="2"
+                                Margin="3"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding Header}" />
                         </DockPanel>
@@ -124,7 +137,7 @@
                 <ControlTemplate
                     TargetType="MenuItem">
                     <Separator
-                        Margin="5,0">
+                        Margin="35,5,5,5">
                         <Separator.Background>
                             <SolidColorBrush
                                 Color="{StaticResource Border}" />
