@@ -40,14 +40,13 @@ namespace NCPanel
             ViewModel.WhenAnyValue(vm => vm.Open).Subscribe(opened =>
             {
                 lockOpenedSizes = true;
+                var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
                 if (opened)
                 {
                     MinHeight = 250;
                     MinWidth = 250;
                     Width = OpenedWith;
                     Height = OpenedHeight;
-                    var screen = Screen.FromHandle(Handle);
-                    var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
                 }
                 else
                 {
@@ -55,8 +54,35 @@ namespace NCPanel
                     MinWidth = 48;
                     Width = 48;
                     Height = 250;
-                    var screen = Screen.FromHandle(Handle);
-                    var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
+                }
+                var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
+                if (
+                    middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                    && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                {
+                    Left = screen.WorkingArea.Left;
+                    Top = screen.WorkingArea.Top;
+                }
+                else if (
+                    middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                    && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                {
+                    Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
+                    Top = screen.WorkingArea.Top;
+                }
+                else if (
+                    middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                    && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                {
+                    Left = screen.WorkingArea.Left;
+                    Top = screen.WorkingArea.Top + screen.WorkingArea.Height - Height;
+                }
+                else if (
+                    middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                    && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                {
+                    Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
+                    Top = screen.WorkingArea.Top + screen.WorkingArea.Height - Height;
                 }
                 lockOpenedSizes = false;
             });
@@ -69,8 +95,8 @@ namespace NCPanel
             {
                 if (ViewModel.Open && WindowState != WindowState.Maximized)
                 {
-                    var screen = Screen.FromHandle(Handle);
                     var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
+                    var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
                     var safeArea = new Rect(
                         screen.WorkingArea.Left + screen.WorkingArea.Width / 3,
                         screen.WorkingArea.Top + screen.WorkingArea.Height / 3,
@@ -152,8 +178,8 @@ namespace NCPanel
         protected override void OnLocationChanged(EventArgs e)
         {
             base.OnLocationChanged(e);
-            var screen = Screen.FromHandle(Handle);
             var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
+            var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
             var safeArea = new Rect(
                 screen.WorkingArea.Left + screen.WorkingArea.Width / 3,
                 screen.WorkingArea.Top + screen.WorkingArea.Height / 3,
