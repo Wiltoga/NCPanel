@@ -35,6 +35,7 @@ namespace NCPanel
             OpenedHeight = Height;
             MinHeight = 350;
             MinWidth = 250;
+            Handle = new WindowInteropHelper(this).Handle;
 
             ViewModel.WhenAnyValue(vm => vm.Open).Subscribe(opened =>
             {
@@ -48,8 +49,8 @@ namespace NCPanel
                 }
                 else
                 {
-                    MinHeight = 0;
-                    MinWidth = 0;
+                    MinHeight = 250;
+                    MinWidth = 48;
                     Width = 48;
                     Height = 250;
                 }
@@ -64,6 +65,24 @@ namespace NCPanel
             {
                 if (ViewModel.Open && WindowState != WindowState.Maximized)
                 {
+                    var screen = Screen.FromHandle(Handle);
+                    var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
+                    var safeArea = new Rect(
+                        screen.WorkingArea.Left + screen.WorkingArea.Width / 3,
+                        screen.WorkingArea.Top + screen.WorkingArea.Height / 3,
+                        screen.WorkingArea.Width / 3,
+                        screen.WorkingArea.Height / 3);
+                    if (safeArea.Contains(middleOfWindow))
+                    {
+                        if (Topmost)
+                            Topmost = false;
+                        return;
+                    }
+                    else
+                    {
+                        if (!Topmost)
+                            Topmost = true;
+                    }
                     var mousePos = Control.MousePosition;
                     if (mousePos.X < Left && mousePos.Y < Top)
                     {
@@ -122,6 +141,7 @@ namespace NCPanel
             timer.Start();
         }
 
+        private IntPtr Handle { get; }
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
 
         protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
