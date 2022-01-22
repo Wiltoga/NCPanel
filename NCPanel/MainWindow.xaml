@@ -482,6 +482,358 @@
                                     </Grid>
                                 </DockPanel>
                             </Button>
+                            <Button
+                                ToolTip="Panel position"
+                                Margin="8"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch">
+                                <DockPanel>
+                                    <TextBlock
+                                        DockPanel.Dock="Bottom"
+                                        HorizontalAlignment="Center"
+                                        Margin="5"
+                                        Text="Placement" />
+                                    <Rectangle
+                                        Width="50"
+                                        Height="40"
+                                        Margin="5">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush
+                                                Viewport="0,0,1,1">
+                                                <VisualBrush.Visual>
+                                                    <Grid
+                                                        Width="50"
+                                                        Height="40">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition
+                                                                Width="*" />
+                                                            <ColumnDefinition
+                                                                Width="*" />
+                                                            <ColumnDefinition
+                                                                Width="*" />
+                                                            <ColumnDefinition
+                                                                Width="*" />
+                                                            <ColumnDefinition
+                                                                Width="*" />
+                                                            <ColumnDefinition
+                                                                Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition
+                                                                Height="*" />
+                                                            <RowDefinition
+                                                                Height="*" />
+                                                            <RowDefinition
+                                                                Height="*" />
+                                                            <RowDefinition
+                                                                Height="*" />
+                                                            <RowDefinition
+                                                                Height="*" />
+                                                            <RowDefinition
+                                                                Height="*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Border
+                                                            CornerRadius="5"
+                                                            BorderBrush="White"
+                                                            BorderThickness="2"
+                                                            Grid.RowSpan="6"
+                                                            Grid.ColumnSpan="6" />
+                                                        <Rectangle
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="2"
+                                                            Grid.Column="2"
+                                                            Width="2"
+                                                            Fill="White" />
+                                                        <Rectangle
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="2"
+                                                            Grid.Column="2"
+                                                            Grid.Row="4"
+                                                            Width="2"
+                                                            Fill="White" />
+                                                        <Rectangle
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="2"
+                                                            Grid.Row="2"
+                                                            Height="2"
+                                                            Fill="White" />
+                                                        <Rectangle
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="2"
+                                                            Grid.Column="4"
+                                                            Grid.Row="2"
+                                                            Height="2"
+                                                            Fill="White" />
+                                                        <Border
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="2"
+                                                            Grid.Column="2"
+                                                            Grid.Row="2"
+                                                            BorderBrush="White"
+                                                            BorderThickness="2" />
+                                                        <Border
+                                                            Grid.ColumnSpan="3"
+                                                            Grid.RowSpan="2"
+                                                            CornerRadius="5,0,0,0"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="TopLeft">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="3"
+                                                            CornerRadius="5,0,0,0"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="TopLeft">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="3"
+                                                            Grid.RowSpan="2"
+                                                            CornerRadius="0,5,0,0"
+                                                            Grid.Column="3"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="TopRight">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="3"
+                                                            Grid.Column="4"
+                                                            CornerRadius="0,5,0,0"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="TopRight">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="3"
+                                                            Grid.RowSpan="2"
+                                                            CornerRadius="0,0,5,0"
+                                                            Grid.Row="4"
+                                                            Grid.Column="3"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="BottomRight">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="3"
+                                                            Grid.Column="4"
+                                                            Grid.Row="3"
+                                                            CornerRadius="0,0,5,0"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="BottomRight">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="3"
+                                                            Grid.RowSpan="2"
+                                                            CornerRadius="0,0,0,5"
+                                                            Grid.Row="4"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="BottomLeft">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="3"
+                                                            Grid.Row="3"
+                                                            CornerRadius="0,0,5,0"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="BottomLeft">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            Grid.ColumnSpan="2"
+                                                            Grid.RowSpan="2"
+                                                            Grid.Row="2"
+                                                            Grid.Column="2"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="None">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                        <Border
+                                                            CornerRadius="5"
+                                                            Grid.ColumnSpan="6"
+                                                            Grid.RowSpan="6"
+                                                            Background="White">
+                                                            <Border.Style>
+                                                                <Style
+                                                                    TargetType="Border">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding Path=ExtensionMode}"
+                                                                            Value="Maximized">
+                                                                            <Setter
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                    </Grid>
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Rectangle.OpacityMask>
+                                        <Rectangle.Style>
+                                            <Style
+                                                TargetType="Rectangle">
+                                                <Setter
+                                                    Property="Fill"
+                                                    Value="White" />
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                                        Value="True">
+                                                        <Setter
+                                                            Property="Fill"
+                                                            Value="{StaticResource MainColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Rectangle.Style>
+                                    </Rectangle>
+                                </DockPanel>
+                            </Button>
                         </StackPanel>
                     </DockPanel>
                 </ScrollViewer>

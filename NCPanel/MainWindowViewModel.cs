@@ -14,7 +14,11 @@ namespace NCPanel
         {
             Open = true;
             Layout = Layout.Grid;
+            ExtensionMode = ExtensionMode.None;
         }
+
+        [Reactive]
+        public ExtensionMode ExtensionMode { get; set; }
 
         [Reactive]
         public Layout Layout { get; set; }

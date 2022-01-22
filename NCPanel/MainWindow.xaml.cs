@@ -46,6 +46,8 @@ namespace NCPanel
                     MinWidth = 250;
                     Width = OpenedWith;
                     Height = OpenedHeight;
+                    var screen = Screen.FromHandle(Handle);
+                    var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
                 }
                 else
                 {
@@ -53,6 +55,8 @@ namespace NCPanel
                     MinWidth = 48;
                     Width = 48;
                     Height = 250;
+                    var screen = Screen.FromHandle(Handle);
+                    var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
                 }
                 lockOpenedSizes = false;
             });
@@ -139,10 +143,41 @@ namespace NCPanel
                 }
             };
             timer.Start();
+            Closed += (sender, e) => timer.Stop();
         }
 
         private IntPtr Handle { get; }
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+
+        protected override void OnLocationChanged(EventArgs e)
+        {
+            base.OnLocationChanged(e);
+            var screen = Screen.FromHandle(Handle);
+            var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
+            var safeArea = new Rect(
+                screen.WorkingArea.Left + screen.WorkingArea.Width / 3,
+                screen.WorkingArea.Top + screen.WorkingArea.Height / 3,
+                screen.WorkingArea.Width / 3,
+                screen.WorkingArea.Height / 3);
+            if (safeArea.Contains(middleOfWindow))
+                ViewModel.ExtensionMode = ExtensionMode.None;
+            else if (
+                middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                ViewModel.ExtensionMode = ExtensionMode.TopLeft;
+            else if (
+                middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                ViewModel.ExtensionMode = ExtensionMode.TopRight;
+            else if (
+                middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                ViewModel.ExtensionMode = ExtensionMode.BottomLeft;
+            else if (
+                middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                ViewModel.ExtensionMode = ExtensionMode.BottomRight;
+        }
 
         protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
         {
@@ -157,6 +192,15 @@ namespace NCPanel
             {
                 OpenedWith = Width;
                 OpenedHeight = Height;
+            }
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            base.OnStateChanged(e);
+            if (WindowState == WindowState.Maximized)
+            {
+                ViewModel.ExtensionMode = ExtensionMode.Maximized;
             }
         }
     }
