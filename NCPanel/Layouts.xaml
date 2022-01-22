@@ -6,8 +6,8 @@
         DataType="{x:Type local:CommandWrapperViewModel}"
         x:Key="GridLayoutCommand">
         <Button
-            Width="80"
-            Height="80"
+            Width="128"
+            Height="128"
             ToolTip="{Binding Path=Source.Description}"
             Command="{Binding Path=Source.Run}">
             <Grid>

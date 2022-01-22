@@ -57,21 +57,21 @@ namespace NCPanel
                 }
                 var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
                 if (
-                    middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                    && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                    middleOfWindow.X <= screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                    && middleOfWindow.Y <= screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
                 {
                     Left = screen.WorkingArea.Left;
                     Top = screen.WorkingArea.Top;
                 }
                 else if (
                     middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                    && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                    && middleOfWindow.Y <= screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
                 {
                     Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
                     Top = screen.WorkingArea.Top;
                 }
                 else if (
-                    middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
+                    middleOfWindow.X <= screen.WorkingArea.Left + screen.WorkingArea.Width / 2
                     && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
                 {
                     Left = screen.WorkingArea.Left;
