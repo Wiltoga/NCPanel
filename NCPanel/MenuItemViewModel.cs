@@ -11,16 +11,14 @@ namespace NCPanel
 {
     public class MenuItemViewModel : ReactiveObject, INCPMenuItem
     {
-        public MenuItemViewModel(string? title, ICommand? run, IEnumerable<INCPMenuItem>? subMenuItems, byte[]? image)
+        public MenuItemViewModel(string? title, ICommand? run, byte[]? image)
         {
             Title = title;
             Run = run;
-            SubMenuItems = subMenuItems;
             Image = image;
         }
 
         public ICommand? Run { get; }
-        public IEnumerable<INCPMenuItem>? SubMenuItems { get; }
         public string? Title { get; }
         private byte[]? Image { get; }
 

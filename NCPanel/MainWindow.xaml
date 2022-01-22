@@ -845,16 +845,8 @@
                         VerticalScrollBarVisibility="Auto"
                         HorizontalScrollBarVisibility="Disabled">
                         <ItemsControl
-                            ItemTemplate="{StaticResource GridLayoutCommand}"
-                            ItemsSource="{Binding Path=Commands}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel
-                                        Orientation="Horizontal"
-                                        IsItemsHost="True" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
+                            Style="{StaticResource GridLayout}"
+                            ItemsSource="{Binding Path=Commands}" />
                     </ScrollViewer>
                 </Border>
             </DockPanel>

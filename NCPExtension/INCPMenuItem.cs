@@ -11,7 +11,6 @@ namespace NCPExtension
     {
         public static readonly INCPMenuItem Separator = new MenuItemSeparator();
         ICommand? Run { get; }
-        IEnumerable<INCPMenuItem>? SubMenuItems { get; }
         string? Title { get; }
 
         byte[]? GetImage();

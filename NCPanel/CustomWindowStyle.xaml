@@ -35,6 +35,106 @@
         #202830
     </Color>
     <Style
+        TargetType="ContextMenu">
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="ContextMenu">
+                    <Border
+                        CornerRadius="5"
+                        BorderThickness="1">
+                        <Border.BorderBrush>
+                            <SolidColorBrush
+                                Color="{StaticResource Border}" />
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush
+                                Color="{StaticResource BackgroundAccent}" />
+                        </Border.Background>
+                        <ItemsPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
+        x:Key="basicMenuItem"
+        TargetType="MenuItem">
+        <Setter
+            Property="Icon"
+            Value="{Binding Path=Visual}" />
+        <Setter
+            Property="Header"
+            Value="{Binding Path=Source.Title}" />
+        <Setter
+            Property="ItemsSource"
+            Value="{Binding Path=SubMenuItems}" />
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="MenuItem">
+                    <Border
+                        CornerRadius="5"
+                        x:Name="back">
+                        <DockPanel>
+                            <ContentPresenter
+                                DockPanel.Dock="Left"
+                                Width="16"
+                                Height="16"
+                                Margin="2"
+                                Content="{TemplateBinding Icon}" />
+                            <Label
+                                FontSize="14"
+                                Foreground="White"
+                                Margin="2"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Header}" />
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsMouseOver"
+                            Value="True">
+                            <Setter
+                                TargetName="back"
+                                Property="Background"
+                                Value="#1fff" />
+                        </Trigger>
+                        <Trigger
+                            Property="IsPressed"
+                            Value="True">
+                            <Setter
+                                TargetName="back"
+                                Property="Background"
+                                Value="#2fff" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
+        x:Key="separatorMenuItem"
+        TargetType="MenuItem">
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="MenuItem">
+                    <Separator
+                        Margin="5,0">
+                        <Separator.Background>
+                            <SolidColorBrush
+                                Color="{StaticResource Border}" />
+                        </Separator.Background>
+                    </Separator>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
        TargetType="ScrollViewer">
         <Setter
             Property="OverridesDefaultStyle"
