@@ -44,29 +44,37 @@ namespace NCPanel
                     ContextMenuSource.Edit(updater => updater.AddRange(command.ContextMenu.Select(menuitem => new MenuItemWrapperViewModel(menuitem, this))));
             }
             ContextMenuSource.Connect()
+                .Sort(Comparer<MenuItemWrapperViewModel>.Create((left, right) =>
+                {
+                    if (left is GeneratedMenuItemViewModel genLeft)
+                    {
+                        if (right is GeneratedMenuItemViewModel genRight)
+                            return genLeft.Index.CompareTo(genRight.Index);
+                        else
+                            return 1;
+                    }
+                    else if (right is GeneratedMenuItemViewModel genRight)
+                        return -1;
+                    else
+                        return 0;
+                }))
                 .Bind(out contextMenu)
                 .Subscribe();
+            if (Source is CommandViewModel genericCommand)
+            {
+                ContextMenuSource.Add(new GeneratedMenuItemViewModel(INCPMenuItem.Separator, this, 0));
+                ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel("Edit", null, Properties.Resources.edit), this, 1));
+                ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel("Delete", null, Properties.Resources.delete), this, 2));
+            }
             Visual = command.GetVisual();
             if (Visual is null)
             {
                 var imgSource = command.GetImage();
                 if (imgSource is not null)
                 {
-                    var image = new BitmapImage();
-                    using (var mem = new MemoryStream(imgSource))
-                    {
-                        mem.Position = 0;
-                        image.BeginInit();
-                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                        image.CacheOption = BitmapCacheOption.OnLoad;
-                        image.UriSource = null;
-                        image.StreamSource = mem;
-                        image.EndInit();
-                    }
-                    image.Freeze();
                     Visual = new Image
                     {
-                        Source = image
+                        Source = Utils.ImageFromBytes(imgSource)
                     };
                 }
             }

@@ -1,41 +1,50 @@
 ﻿using NCPExtension;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NCPanel
 {
     public class CommandViewModel : ReactiveObject, INCPCommand
     {
-        public CommandViewModel(string name, string description, ICommand? run, IEnumerable<INCPMenuItem>? contextMenu, byte[]? image)
+        public CommandViewModel()
         {
-            Name = name;
-            Description = description;
-            Run = run;
-            ContextMenu = contextMenu;
-            Image = image;
+            Visual = new Image
+            {
+                Source = null
+            };
+            ContextMenu = new ObservableCollection<INCPMenuItem>();
         }
 
-        public IEnumerable<INCPMenuItem>? ContextMenu { get; }
-        public string Description { get; }
-        public string Name { get; }
+        IEnumerable<INCPMenuItem>? INCPCommand.ContextMenu => ContextMenu;
+        public ObservableCollection<INCPMenuItem> ContextMenu { get; }
 
-        public ICommand? Run { get; }
-        private byte[]? Image { get; }
+        [Reactive]
+        public string? Description { get; set; }
+
+        [Reactive]
+        public string? Name { get; set; }
+
+        [Reactive]
+        public ICommand? Run { get; set; }
+
+        public Image Visual { get; }
 
         public byte[]? GetImage()
         {
-            return Image;
+            return null;
         }
 
         public object? GetVisual()
         {
-            return null;
+            return Visual;
         }
 
         public void Init()

@@ -28,21 +28,9 @@ namespace NCPanel
                 var imgSource = menuitem.GetImage();
                 if (imgSource is not null)
                 {
-                    var image = new BitmapImage();
-                    using (var mem = new MemoryStream(imgSource))
-                    {
-                        mem.Position = 0;
-                        image.BeginInit();
-                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                        image.CacheOption = BitmapCacheOption.OnLoad;
-                        image.UriSource = null;
-                        image.StreamSource = mem;
-                        image.EndInit();
-                    }
-                    image.Freeze();
                     Visual = new Image
                     {
-                        Source = image
+                        Source = Utils.ImageFromBytes(imgSource)
                     };
                 }
             }
