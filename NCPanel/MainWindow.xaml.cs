@@ -34,7 +34,7 @@ namespace NCPanel
             OpenedWith = Width;
             OpenedHeight = Height;
             MinHeight = 250;
-            MinWidth = 250;
+            MinWidth = 350;
             Handle = new WindowInteropHelper(this).Handle;
 
             ViewModel.WhenAnyValue(vm => vm.Open).Subscribe(opened =>
@@ -44,7 +44,7 @@ namespace NCPanel
                 if (opened)
                 {
                     MinHeight = 250;
-                    MinWidth = 250;
+                    MinWidth = 350;
                     Width = OpenedWith;
                     Height = OpenedHeight;
                 }

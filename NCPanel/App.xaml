@@ -6,10 +6,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="CustomWindowStyle.xaml" />
-                <ResourceDictionary
-                    Source="Layouts.xaml" />
                 <ResourceDictionary>
                     <LinearGradientBrush
                         StartPoint="0,0"
@@ -23,6 +19,10 @@
                             Color="#4520A9" />
                     </LinearGradientBrush>
                 </ResourceDictionary>
+                <ResourceDictionary
+                    Source="CustomWindowStyle.xaml" />
+                <ResourceDictionary
+                    Source="Layouts.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

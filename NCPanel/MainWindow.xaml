@@ -840,14 +840,44 @@
                 <Border
                     CornerRadius="16,0,0,0"
                     Background="#08ffffff">
-                    <ScrollViewer
-                        Margin="10"
-                        VerticalScrollBarVisibility="Auto"
-                        HorizontalScrollBarVisibility="Disabled">
-                        <ItemsControl
-                            Style="{StaticResource GridLayout}"
-                            ItemsSource="{Binding Path=Commands}" />
-                    </ScrollViewer>
+                    <ItemsControl
+                        ItemsSource="{Binding Path=Commands}">
+                        <ItemsControl.Style>
+                            <Style
+                                TargetType="ItemsControl">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Path=Layout}"
+                                        Value="Grid">
+                                        <Setter
+                                            Property="Template"
+                                            Value="{StaticResource GridLayout}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Path=Layout}"
+                                        Value="Detail">
+                                        <Setter
+                                            Property="Template"
+                                            Value="{StaticResource DetailLayout}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Path=Layout}"
+                                        Value="List">
+                                        <Setter
+                                            Property="Template"
+                                            Value="{StaticResource ListLayout}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Path=Layout}"
+                                        Value="Card">
+                                        <Setter
+                                            Property="Template"
+                                            Value="{StaticResource CardLayout}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
                 </Border>
             </DockPanel>
         </ControlTemplate>
