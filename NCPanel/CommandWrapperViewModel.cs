@@ -66,7 +66,12 @@ namespace NCPanel
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
                 {
                     Title = "Edit",
-                    Image = Properties.Resources.edit
+                    Image = Properties.Resources.edit,
+                    Run = ReactiveCommand.Create(() =>
+                    {
+                        var dialog = new CommandEdition(genericCommand);
+                        dialog.ShowDialog();
+                    })
                 }, this, 1));
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
                 {

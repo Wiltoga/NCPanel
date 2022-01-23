@@ -55,7 +55,7 @@ namespace NCPanel
         public byte[]? Image { get; set; }
 
         [Reactive]
-        public ICommand? Run { get; private set; }
+        public ICommand? Run { get; set; }
 
         [Reactive]
         public string? Title { get; set; }

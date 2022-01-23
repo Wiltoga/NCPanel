@@ -67,7 +67,7 @@ namespace NCPanel
         public string? Name { get; set; }
 
         [Reactive]
-        public ICommand? Run { get; private set; }
+        public ICommand? Run { get; set; }
 
         private Image Visual { get; }
 
