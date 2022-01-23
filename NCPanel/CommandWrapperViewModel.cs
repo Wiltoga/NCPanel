@@ -63,8 +63,16 @@ namespace NCPanel
             if (Source is CommandViewModel genericCommand)
             {
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(INCPMenuItem.Separator, this, 0));
-                ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel("Edit", null, Properties.Resources.edit), this, 1));
-                ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel("Delete", null, Properties.Resources.delete), this, 2));
+                ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
+                {
+                    Title = "Edit",
+                    Image = Properties.Resources.edit
+                }, this, 1));
+                ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
+                {
+                    Title = "Delete",
+                    Image = Properties.Resources.delete
+                }, this, 2));
             }
             Visual = command.GetVisual();
             if (Visual is null)
