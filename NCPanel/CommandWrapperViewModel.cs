@@ -19,9 +19,10 @@ using System.Windows.Media.Imaging;
 
 namespace NCPanel
 {
-    public class CommandWrapperViewModel : ReactiveObject
+    public class CommandWrapperViewModel : ReactiveObject, IDisposable
     {
         private ReadOnlyObservableCollection<MenuItemWrapperViewModel> contextMenu;
+        private IDisposable subscriber;
 
         public CommandWrapperViewModel(INCPCommand command, MainWindowViewModel parent)
         {
@@ -37,7 +38,7 @@ namespace NCPanel
                 var generic = toObservableMethod.MakeGenericMethod(command.ContextMenu.GetType(), typeof(INCPMenuItem));
                 var sourceSet = generic.Invoke(null, new[] { command.ContextMenu }) as IObservable<IChangeSet<INCPMenuItem>>;
                 if (sourceSet is not null)
-                    ContextMenuSource = new SourceList<MenuItemWrapperViewModel>(sourceSet.Transform(menuitem => new MenuItemWrapperViewModel(menuitem, this)));
+                    ContextMenuSource = new SourceList<MenuItemWrapperViewModel>(sourceSet.Transform(menuitem => new MenuItemWrapperViewModel(menuitem, this)).DisposeMany());
             }
             if (ContextMenuSource is null)
             {
@@ -45,7 +46,7 @@ namespace NCPanel
                 if (command.ContextMenu is not null)
                     ContextMenuSource.Edit(updater => updater.AddRange(command.ContextMenu.Select(menuitem => new MenuItemWrapperViewModel(menuitem, this))));
             }
-            ContextMenuSource.Connect()
+            subscriber = ContextMenuSource.Connect()
                 .Sort(Comparer<MenuItemWrapperViewModel>.Create((left, right) =>
                 {
                     if (left is GeneratedMenuItemViewModel genLeft)
@@ -128,5 +129,10 @@ namespace NCPanel
         public object? Visual { get; private set; }
 
         private SourceList<MenuItemWrapperViewModel> ContextMenuSource { get; }
+
+        public void Dispose()
+        {
+            subscriber.Dispose();
+        }
     }
 }

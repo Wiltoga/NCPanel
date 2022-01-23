@@ -29,6 +29,21 @@ namespace NCPanel
 
         private CommandEditionViewModel ViewModel => (CommandEditionViewModel)DataContext;
 
+        private void EditCommandCommandLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                Multiselect = false,
+                Title = "Open file",
+                Filter = "All files|*.*"
+            };
+            if (dialog.ShowDialog() is true)
+            {
+                ViewModel.Source.CommandLine = dialog.FileName;
+            }
+        }
+
         private async void EditCommandIconButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog

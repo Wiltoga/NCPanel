@@ -14,14 +14,15 @@ using System.Windows.Input;
 
 namespace NCPanel
 {
-    public class CommandViewModel : ReactiveObject, INCPCommand, IEditableObject
+    public class CommandViewModel : ReactiveObject, INCPCommand, IEditableObject, IDisposable
     {
         private Saved? save;
+        private IDisposable subscriber;
 
         public CommandViewModel()
         {
             ContextMenu = new ObservableCollection<INCPMenuItem>();
-            this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
+            subscriber = this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
             Run = cmd is not null
                 ? ReactiveCommand.Create(() =>
                 {
@@ -92,6 +93,11 @@ namespace NCPanel
                     ContextMenu.Add(item);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            subscriber.Dispose();
         }
 
         public void EndEdit()

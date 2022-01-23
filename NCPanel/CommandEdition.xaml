@@ -83,9 +83,19 @@
                             Text="{Binding Path=Source.Name, Mode=TwoWay}" />
                         <Separator
                             Margin="5" />
-                        <TextBlock
-                            Margin="5"
-                            Text="Command line :" />
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Text="Command line :" />
+                            <Button
+                                Click="EditCommandCommandLineButton_Click"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Padding="10,2"
+                                Content="Open file..." />
+                        </StackPanel>
                         <TextBox
                             Margin="5"
                             Text="{Binding Path=Source.CommandLine, Mode=TwoWay}" />
@@ -98,6 +108,7 @@
                             Margin="5"
                             TextWrapping="Wrap"
                             MinLines="3"
+                            AcceptsReturn="True"
                             Text="{Binding Path=Source.Description, Mode=TwoWay}" />
                     </StackPanel>
                 </ScrollViewer>
@@ -112,6 +123,8 @@
                 <ScrollViewer
                     VerticalScrollBarVisibility="Auto"
                     HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl
+                        ItemsSource="{Binding Path=ContextMenu}" />
                 </ScrollViewer>
             </DockPanel>
         </Grid>

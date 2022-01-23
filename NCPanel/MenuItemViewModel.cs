@@ -13,13 +13,14 @@ using System.Windows.Input;
 
 namespace NCPanel
 {
-    public class MenuItemViewModel : ReactiveObject, INCPMenuItem, IEditableObject
+    public class MenuItemViewModel : ReactiveObject, INCPMenuItem, IEditableObject, IDisposable
     {
         private Saved? save;
+        private IDisposable subscriber;
 
         public MenuItemViewModel()
         {
-            this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
+            subscriber = this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
             Run = cmd is not null
                 ? ReactiveCommand.Create(() =>
                 {
@@ -75,6 +76,11 @@ namespace NCPanel
                 Image = save.Value.image;
                 Title = save.Value.title;
             }
+        }
+
+        public void Dispose()
+        {
+            subscriber.Dispose();
         }
 
         public void EndEdit()
