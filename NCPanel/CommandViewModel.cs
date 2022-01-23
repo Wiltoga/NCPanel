@@ -20,10 +20,6 @@ namespace NCPanel
 
         public CommandViewModel()
         {
-            Visual = new Image
-            {
-                Source = null
-            };
             ContextMenu = new ObservableCollection<INCPMenuItem>();
             this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
             Run = cmd is not null
@@ -43,10 +39,6 @@ namespace NCPanel
                     {
                     }
                 })
-                : null);
-            this.WhenAnyValue(o => o.Image).Subscribe(img =>
-            Visual.Source = img is not null
-                ? Utils.ImageFromBytes(img)
                 : null);
         }
 
@@ -69,11 +61,11 @@ namespace NCPanel
         [Reactive]
         public ICommand? Run { get; set; }
 
-        private Image Visual { get; }
+        public object? Visual { get; }
 
         public void BeginEdit()
         {
-            if (save is not null)
+            if (save is null)
             {
                 save = new Saved
                 {
@@ -105,16 +97,6 @@ namespace NCPanel
         public void EndEdit()
         {
             save = null;
-        }
-
-        public byte[]? GetImage()
-        {
-            return null;
-        }
-
-        public object? GetVisual()
-        {
-            return Visual;
         }
 
         public void Init()

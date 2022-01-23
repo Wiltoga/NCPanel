@@ -6,13 +6,10 @@ namespace NCPExtension
     {
         IEnumerable<INCPMenuItem>? ContextMenu { get; }
         string? Description { get; }
+        byte[]? Image { get; }
         string? Name { get; }
-
         ICommand? Run { get; }
-
-        byte[]? GetImage();
-
-        object? GetVisual();
+        object? Visual { get; }
 
         void Init();
     }

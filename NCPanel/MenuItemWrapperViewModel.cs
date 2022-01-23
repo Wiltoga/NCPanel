@@ -2,10 +2,12 @@
 using DynamicData.Binding;
 using NCPExtension;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,16 +18,16 @@ using System.Windows.Media.Imaging;
 
 namespace NCPanel
 {
-    public class MenuItemWrapperViewModel
+    public class MenuItemWrapperViewModel : ReactiveObject
     {
         public MenuItemWrapperViewModel(INCPMenuItem menuitem, CommandWrapperViewModel parent)
         {
             Parent = parent;
             Source = menuitem;
-            Visual = menuitem.GetVisual();
+            Visual = menuitem.Visual;
             if (Visual is null)
             {
-                var imgSource = menuitem.GetImage();
+                var imgSource = menuitem.Image;
                 if (imgSource is not null)
                 {
                     Visual = new Image
@@ -34,10 +36,33 @@ namespace NCPanel
                     };
                 }
             }
+            if (menuitem is INotifyPropertyChanged notifier)
+            {
+                notifier.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(INCPCommand.Image))
+                    {
+                        var imgSource = menuitem.Image;
+                        if (imgSource is not null)
+                        {
+                            Visual = new Image
+                            {
+                                Source = Utils.ImageFromBytes(imgSource)
+                            };
+                        }
+                    }
+                    else if (e.PropertyName == nameof(INCPCommand.Visual))
+                    {
+                        Visual = menuitem.Visual;
+                    }
+                };
+            }
         }
 
         public CommandWrapperViewModel Parent { get; }
         public INCPMenuItem Source { get; }
-        public object? Visual { get; }
+
+        [Reactive]
+        public object? Visual { get; private set; }
     }
 }

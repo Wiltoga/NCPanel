@@ -2,10 +2,12 @@
 using DynamicData.Binding;
 using NCPExtension;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,7 +19,7 @@ using System.Windows.Media.Imaging;
 
 namespace NCPanel
 {
-    public class CommandWrapperViewModel
+    public class CommandWrapperViewModel : ReactiveObject
     {
         private ReadOnlyObservableCollection<MenuItemWrapperViewModel> contextMenu;
 
@@ -69,8 +71,12 @@ namespace NCPanel
                     Image = Properties.Resources.edit,
                     Run = ReactiveCommand.Create(() =>
                     {
+                        genericCommand.BeginEdit();
                         var dialog = new CommandEdition(genericCommand);
-                        dialog.ShowDialog();
+                        if (dialog.ShowDialog() is true)
+                            genericCommand.EndEdit();
+                        else
+                            genericCommand.CancelEdit();
                     })
                 }, this, 1));
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
@@ -79,10 +85,10 @@ namespace NCPanel
                     Image = Properties.Resources.delete
                 }, this, 2));
             }
-            Visual = command.GetVisual();
+            Visual = command.Visual;
             if (Visual is null)
             {
-                var imgSource = command.GetImage();
+                var imgSource = command.Image;
                 if (imgSource is not null)
                 {
                     Visual = new Image
@@ -91,12 +97,36 @@ namespace NCPanel
                     };
                 }
             }
+            if (command is INotifyPropertyChanged notifier)
+            {
+                notifier.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(INCPCommand.Image))
+                    {
+                        var imgSource = command.Image;
+                        if (imgSource is not null)
+                        {
+                            Visual = new Image
+                            {
+                                Source = Utils.ImageFromBytes(imgSource)
+                            };
+                        }
+                    }
+                    else if (e.PropertyName == nameof(INCPCommand.Visual))
+                    {
+                        Visual = command.Visual;
+                    }
+                };
+            }
         }
 
         public IEnumerable<MenuItemWrapperViewModel> ContextMenu => contextMenu;
         public MainWindowViewModel Parent { get; }
         public INCPCommand Source { get; }
-        public object? Visual { get; }
+
+        [Reactive]
+        public object? Visual { get; private set; }
+
         private SourceList<MenuItemWrapperViewModel> ContextMenuSource { get; }
     }
 }

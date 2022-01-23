@@ -19,10 +19,6 @@ namespace NCPanel
 
         public MenuItemViewModel()
         {
-            Visual = new Image
-            {
-                Source = null
-            };
             this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
             Run = cmd is not null
                 ? ReactiveCommand.Create(() =>
@@ -42,10 +38,6 @@ namespace NCPanel
                     }
                 })
                 : null);
-            this.WhenAnyValue(o => o.Image).Subscribe(img =>
-            Visual.Source = img is not null
-                ? Utils.ImageFromBytes(img)
-                : null);
         }
 
         [Reactive]
@@ -60,11 +52,11 @@ namespace NCPanel
         [Reactive]
         public string? Title { get; set; }
 
-        private Image Visual { get; }
+        public object? Visual { get; }
 
         public void BeginEdit()
         {
-            if (save is not null)
+            if (save is null)
             {
                 save = new Saved
                 {
@@ -88,16 +80,6 @@ namespace NCPanel
         public void EndEdit()
         {
             save = null;
-        }
-
-        public byte[]? GetImage()
-        {
-            return null;
-        }
-
-        public object? GetVisual()
-        {
-            return Visual;
         }
 
         private struct Saved

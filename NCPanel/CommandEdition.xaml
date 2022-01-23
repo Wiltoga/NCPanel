@@ -6,13 +6,114 @@
         xmlns:local="clr-namespace:NCPanel"
         mc:Ignorable="d"
         ShowInTaskbar="False"
-        Title="NCpanel - Command edition"
-        Height="450"
-        Width="800"
+        Title="{Binding Path=Source.Name, StringFormat='{}NCPanel - {0}'}"
+        Height="550"
+        Width="700"
         d:Background="#222"
+        WindowStartupLocation="CenterScreen"
         Style="{StaticResource CustomWindow}">
-    <Grid>
-        <TextBlock
-            Text="test" />
-    </Grid>
+    <Window.Resources>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            DockPanel.Dock="Bottom">
+            <Button
+                Margin="5"
+                Padding="5"
+                Width="80"
+                IsCancel="True"
+                Content="Cancel" />
+            <Button
+                Click="OkButton_Click"
+                Margin="5"
+                Padding="5"
+                Width="80"
+                IsDefault="True"
+                Content="Ok" />
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <DockPanel
+                Margin="5">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Margin="5"
+                    Text="Command :" />
+                <ScrollViewer
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel
+                        Orientation="Vertical">
+                        <TextBlock
+                            Margin="5"
+                            Text="Icon :" />
+                        <Button
+                            Click="EditCommandIconButton_Click"
+                            HorizontalAlignment="Center"
+                            Padding="6">
+                            <Rectangle
+                                Margin="5"
+                                Width="120"
+                                Height="120">
+                                <Rectangle.Fill>
+                                    <VisualBrush
+                                        Viewport="0,0,1,1">
+                                        <VisualBrush.Visual>
+                                            <Image
+                                                Source="{Binding Path=Icon}" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                        <Separator
+                            Margin="5" />
+                        <TextBlock
+                            Margin="5"
+                            Text="Name :" />
+                        <TextBox
+                            Margin="5"
+                            Text="{Binding Path=Source.Name, Mode=TwoWay}" />
+                        <Separator
+                            Margin="5" />
+                        <TextBlock
+                            Margin="5"
+                            Text="Command line :" />
+                        <TextBox
+                            Margin="5"
+                            Text="{Binding Path=Source.CommandLine, Mode=TwoWay}" />
+                        <Separator
+                            Margin="5" />
+                        <TextBlock
+                            Margin="5"
+                            Text="Description :" />
+                        <TextBox
+                            Margin="5"
+                            TextWrapping="Wrap"
+                            MinLines="3"
+                            Text="{Binding Path=Source.Description, Mode=TwoWay}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+            <DockPanel
+                Margin="5"
+                Grid.Column="1">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Margin="5"
+                    Text="Context menu :" />
+                <ScrollViewer
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled">
+                </ScrollViewer>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
 </Window>

@@ -9,20 +9,10 @@ namespace NCPExtension
 {
     internal sealed class MenuItemSeparator : INCPMenuItem
     {
+        public byte[]? Image => null;
         public ICommand? Run => null;
 
-        public IEnumerable<INCPMenuItem>? SubMenuItems => null;
-
         public string? Title => null;
-
-        public byte[]? GetImage()
-        {
-            return null;
-        }
-
-        public object? GetVisual()
-        {
-            return null;
-        }
+        public object? Visual => null;
     }
 }

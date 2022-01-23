@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +24,29 @@ namespace NCPanel
         public CommandEdition(CommandViewModel command)
         {
             InitializeComponent();
-            DataContext = command;
+            DataContext = new CommandEditionViewModel(command);
+        }
+
+        private CommandEditionViewModel ViewModel => (CommandEditionViewModel)DataContext;
+
+        private async void EditCommandIconButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                Multiselect = false,
+                Title = "Change icon",
+                Filter = "Images|*.png;*.jpg;*.jpeg;*.bmp|All files|*.*"
+            };
+            if (dialog.ShowDialog() is true)
+            {
+                ViewModel.Source.Image = await File.ReadAllBytesAsync(dialog.FileName);
+            }
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

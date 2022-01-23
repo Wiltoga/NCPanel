@@ -35,6 +35,18 @@
         #202830
     </Color>
     <Style
+        TargetType="TextBox">
+        <Setter
+            Property="Background"
+            Value="#8000" />
+        <Setter
+            Property="Foreground"
+            Value="White" />
+        <Setter
+            Property="BorderThickness"
+            Value="0" />
+    </Style>
+    <Style
         TargetType="ContextMenu">
         <Setter
             Property="Template">
@@ -85,14 +97,8 @@
             Property="Command"
             Value="{Binding Path=Source.Run}" />
         <Setter
-            Property="Icon"
-            Value="{Binding Path=Visual}" />
-        <Setter
             Property="Header"
             Value="{Binding Path=Source.Title}" />
-        <Setter
-            Property="ItemsSource"
-            Value="{Binding Path=SubMenuItems}" />
         <Setter
             Property="Template">
             <Setter.Value>
@@ -118,12 +124,21 @@
                                     </Style.Triggers>
                                 </Style>
                             </DockPanel.Style>
-                            <ContentPresenter
+                            <Rectangle
                                 DockPanel.Dock="Left"
                                 Width="24"
                                 Height="24"
-                                Margin="3"
-                                Content="{TemplateBinding Icon}" />
+                                Margin="3">
+                                <Rectangle.Fill>
+                                    <VisualBrush
+                                        Viewport="0,0,1,1">
+                                        <VisualBrush.Visual>
+                                            <ContentPresenter
+                                                Content="{Binding Path=Visual}" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
                             <Label
                                 FontSize="14"
                                 Foreground="White"
@@ -153,6 +168,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger
+                Property="Command"
+                Value="{x:Null}">
+                <Setter
+                    Property="IsEnabled"
+                    Value="False" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <Style
         x:Key="separatorMenuItem"

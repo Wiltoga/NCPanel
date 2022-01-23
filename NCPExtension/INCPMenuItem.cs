@@ -10,11 +10,9 @@ namespace NCPExtension
     public interface INCPMenuItem
     {
         public static readonly INCPMenuItem Separator = new MenuItemSeparator();
+        byte[]? Image { get; }
         ICommand? Run { get; }
         string? Title { get; }
-
-        byte[]? GetImage();
-
-        object? GetVisual();
+        object? Visual { get; }
     }
 }
