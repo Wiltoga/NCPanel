@@ -34,8 +34,10 @@ namespace NCPanel
                 }));
             subDisposables.Add(source.ContextMenu.ToObservableChangeSet()
                 .Transform(menuitem => new MenuItemEditionViewModel((MenuItemViewModel)menuitem))
-                .DisposeMany()
+                .AutoRefresh(o => o.Source.Index)
+                .Sort(Comparer<MenuItemEditionViewModel>.Create((left, right) => Utils.MenuItemComparer.Compare(left.Source, right.Source)))
                 .Bind(out contextMenu)
+                .DisposeMany()
                 .Subscribe());
         }
 

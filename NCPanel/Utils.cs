@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NCPExtension;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,28 @@ namespace NCPanel
 {
     public static class Utils
     {
+        static Utils()
+        {
+            MenuItemComparer = Comparer<INCPMenuItem>.Create((left, right) => left.Index.CompareTo(right.Index));
+            MenuItemWrapperComparer = Comparer<MenuItemWrapperViewModel>.Create((left, right) =>
+            {
+                if (left is GeneratedMenuItemViewModel)
+                {
+                    if (right is GeneratedMenuItemViewModel)
+                        return MenuItemComparer.Compare(left.Source, right.Source);
+                    else
+                        return 1;
+                }
+                else if (right is GeneratedMenuItemViewModel)
+                    return -1;
+                else
+                    return MenuItemComparer.Compare(left.Source, right.Source);
+            });
+        }
+
+        public static IComparer<INCPMenuItem> MenuItemComparer { get; }
+        public static IComparer<MenuItemWrapperViewModel> MenuItemWrapperComparer { get; }
+
         public static ImageSource ImageFromBytes(byte[] imgSource)
         {
             var image = new BitmapImage();

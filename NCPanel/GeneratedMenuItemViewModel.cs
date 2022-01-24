@@ -9,11 +9,8 @@ namespace NCPanel
 {
     public class GeneratedMenuItemViewModel : MenuItemWrapperViewModel
     {
-        public GeneratedMenuItemViewModel(INCPMenuItem menuitem, CommandWrapperViewModel parent, int index) : base(menuitem, parent)
+        public GeneratedMenuItemViewModel(INCPMenuItem menuitem, CommandWrapperViewModel parent) : base(menuitem, parent)
         {
-            Index = index;
         }
-
-        public int Index { get; }
     }
 }

@@ -15,7 +15,7 @@ namespace NCPanel
         {
             if (item is MenuItemWrapperViewModel itemWrapper && container is FrameworkElement fe)
             {
-                if (itemWrapper.Source == INCPMenuItem.Separator)
+                if (itemWrapper.Source.GetType().CustomAttributes.Any(ca => ca.AttributeType == typeof(SeparatorAttribute)))
                     return fe.FindResource("separatorMenuItem") as Style;
                 else
                     return fe.FindResource("basicMenuItem") as Style;

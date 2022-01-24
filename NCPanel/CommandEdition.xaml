@@ -7,12 +7,174 @@
         mc:Ignorable="d"
         ShowInTaskbar="False"
         Title="{Binding Path=Source.Name, StringFormat='{}NCPanel - {0}'}"
-        Height="550"
+        Height="700"
         Width="700"
         d:Background="#222"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource CustomWindow}">
     <Window.Resources>
+        <DataTemplate
+            DataType="{x:Type local:MenuItemEditionViewModel}">
+            <Grid
+                AllowDrop="True"
+                DragEnter="Grid_DragOver"
+                DragLeave="Grid_DragLeave"
+                DragOver="Grid_DragOver"
+                Drop="Grid_Drop">
+                <Rectangle
+                    Fill="{StaticResource MainColor}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Height="2"
+                    Margin="0,-1">
+                    <Rectangle.Style>
+                        <Style
+                            TargetType="Rectangle">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Path=InsertTop}"
+                                    Value="False">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle
+                    Fill="{StaticResource MainColor}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Height="2"
+                    Margin="0,-1">
+                    <Rectangle.Style>
+                        <Style
+                            TargetType="Rectangle">
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Path=InsertBot}"
+                                    Value="False">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Border
+                    CornerRadius="5"
+                    Margin="5"
+                    Background="#4000">
+                    <DockPanel
+                        Margin="4">
+                        <Rectangle
+                            MouseDown="DraggyRectangle_MouseDown"
+                            SnapsToDevicePixels="True"
+                            Width="5"
+                            Cursor="SizeNS"
+                            VerticalAlignment="Stretch">
+                            <Rectangle.Fill>
+                                <VisualBrush
+                                    TileMode="Tile"
+                                    ViewportUnits="Absolute"
+                                    Viewport="0,0,5,4">
+                                    <VisualBrush.Visual>
+                                        <Canvas
+                                            Background="#01000000"
+                                            Width="5"
+                                            Height="4">
+                                            <Rectangle
+                                                Fill="#4fff"
+                                                Canvas.Left="0"
+                                                Canvas.Top="0"
+                                                Width="1"
+                                                Height="1" />
+                                            <Rectangle
+                                                Fill="#4fff"
+                                                Canvas.Left="2"
+                                                Canvas.Top="2"
+                                                Width="1"
+                                                Height="1" />
+                                            <Rectangle
+                                                Fill="#4fff"
+                                                Canvas.Left="4"
+                                                Canvas.Top="0"
+                                                Width="1"
+                                                Height="1" />
+                                        </Canvas>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel
+                            Orientation="Vertical">
+                            <DockPanel>
+                                <TextBlock
+                                    DockPanel.Dock="Left"
+                                    Margin="5"
+                                    Text="Title :"
+                                    VerticalAlignment="Center" />
+                                <TextBox
+                                    Margin="5"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Path=Source.Title, Mode=TwoWay}" />
+                            </DockPanel>
+                            <Separator
+                                Margin="5" />
+                            <DockPanel>
+                                <TextBlock
+                                    Margin="5"
+                                    DockPanel.Dock="Left"
+                                    Text="Icon :"
+                                    VerticalAlignment="Center" />
+                                <Button
+                                    Click="EditMenuItemIconButton_Click"
+                                    HorizontalAlignment="Center"
+                                    Padding="6">
+                                    <Rectangle
+                                        Margin="5"
+                                        Width="32"
+                                        Height="32">
+                                        <Rectangle.Fill>
+                                            <VisualBrush
+                                                Viewport="0,0,1,1">
+                                                <VisualBrush.Visual>
+                                                    <Image
+                                                        Source="{Binding Path=Icon}" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                            </DockPanel>
+                            <Separator
+                                Margin="5" />
+                            <DockPanel>
+                                <StackPanel
+                                    DockPanel.Dock="Top"
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="5"
+                                        VerticalAlignment="Center"
+                                        Text="Command line :" />
+                                    <Button
+                                        Click="EditMenuItemCommandLineButton_Click"
+                                        Margin="5"
+                                        VerticalAlignment="Center"
+                                        Padding="10,2"
+                                        Content="Open file..." />
+                                </StackPanel>
+                                <TextBox
+                                    Margin="5"
+                                    Text="{Binding Path=Source.CommandLine, Mode=TwoWay}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <DockPanel>
         <StackPanel
@@ -120,12 +282,16 @@
                     DockPanel.Dock="Top"
                     Margin="5"
                     Text="Context menu :" />
-                <ScrollViewer
-                    VerticalScrollBarVisibility="Auto"
-                    HorizontalScrollBarVisibility="Disabled">
-                    <ItemsControl
-                        ItemsSource="{Binding Path=ContextMenu}" />
-                </ScrollViewer>
+                <ContentControl
+                    Background="#01000000"
+                    local:DragDropExtension.ScrollOnDragDrop="True">
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl
+                            ItemsSource="{Binding Path=ContextMenu}" />
+                    </ScrollViewer>
+                </ContentControl>
             </DockPanel>
         </Grid>
     </DockPanel>

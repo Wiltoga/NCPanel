@@ -47,44 +47,40 @@ namespace NCPanel
                     ContextMenuSource.Edit(updater => updater.AddRange(command.ContextMenu.Select(menuitem => new MenuItemWrapperViewModel(menuitem, this))));
             }
             subscriber = ContextMenuSource.Connect()
-                .Sort(Comparer<MenuItemWrapperViewModel>.Create((left, right) =>
-                {
-                    if (left is GeneratedMenuItemViewModel genLeft)
-                    {
-                        if (right is GeneratedMenuItemViewModel genRight)
-                            return genLeft.Index.CompareTo(genRight.Index);
-                        else
-                            return 1;
-                    }
-                    else if (right is GeneratedMenuItemViewModel genRight)
-                        return -1;
-                    else
-                        return 0;
-                }))
+                .AutoRefresh(o => o.Index)
+                .Sort(Utils.MenuItemWrapperComparer)
                 .Bind(out contextMenu)
                 .Subscribe();
             if (Source is CommandViewModel genericCommand)
             {
-                ContextMenuSource.Add(new GeneratedMenuItemViewModel(INCPMenuItem.Separator, this, 0));
+                ContextMenuSource.Add(new GeneratedMenuItemViewModel(INCPMenuItem.Separator(0), this));
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
                 {
                     Title = "Edit",
+                    Index = 1,
                     Image = Properties.Resources.edit,
                     Run = ReactiveCommand.Create(() =>
                     {
+                        if (parent.ExtensionMode != ExtensionMode.None &&
+                            parent.ExtensionMode != ExtensionMode.Maximized)
+                            parent.Open = false;
                         genericCommand.BeginEdit();
-                        var dialog = new CommandEdition(genericCommand);
+                        var dialog = new CommandEdition(genericCommand)
+                        {
+                            Owner = App.Current.MainWindow
+                        };
                         if (dialog.ShowDialog() is true)
                             genericCommand.EndEdit();
                         else
                             genericCommand.CancelEdit();
                     })
-                }, this, 1));
+                }, this));
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
                 {
                     Title = "Delete",
-                    Image = Properties.Resources.delete
-                }, this, 2));
+                    Image = Properties.Resources.delete,
+                    Index = 2
+                }, this));
             }
             Visual = command.Visual;
             if (Visual is null)

@@ -25,6 +25,7 @@ namespace NCPanel
             Parent = parent;
             Source = menuitem;
             Visual = menuitem.Visual;
+            Index = menuitem.Index;
             if (Visual is null)
             {
                 var imgSource = menuitem.Image;
@@ -40,7 +41,7 @@ namespace NCPanel
             {
                 notifier.PropertyChanged += (sender, e) =>
                 {
-                    if (e.PropertyName == nameof(INCPCommand.Image))
+                    if (e.PropertyName == nameof(INCPMenuItem.Image))
                     {
                         var imgSource = menuitem.Image;
                         if (imgSource is not null)
@@ -51,13 +52,20 @@ namespace NCPanel
                             };
                         }
                     }
-                    else if (e.PropertyName == nameof(INCPCommand.Visual))
+                    else if (e.PropertyName == nameof(INCPMenuItem.Visual))
                     {
                         Visual = menuitem.Visual;
+                    }
+                    else if (e.PropertyName == nameof(INCPMenuItem.Index))
+                    {
+                        Index = menuitem.Index;
                     }
                 };
             }
         }
+
+        [Reactive]
+        public int Index { get; private set; }
 
         public CommandWrapperViewModel Parent { get; }
         public INCPMenuItem Source { get; }

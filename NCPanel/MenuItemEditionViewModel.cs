@@ -32,6 +32,12 @@ namespace NCPanel
         [Reactive]
         public ImageSource? Icon { get; private set; }
 
+        [Reactive]
+        public bool InsertBot { get; set; }
+
+        [Reactive]
+        public bool InsertTop { get; set; }
+
         public MenuItemViewModel Source { get; }
 
         public void Dispose()
