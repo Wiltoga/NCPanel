@@ -10,21 +10,17 @@ namespace NCPanel
 {
     public class DataStorage
     {
+        public static readonly string DataFolder;
         private const string ImagesFolderName = "icons";
         private const string PortableFolderName = "Data";
         private const string SettingsFileName = "settings.json";
-        private static readonly string DataFolder;
 
         static DataStorage()
         {
-#if DEBUG
-            DataFolder = PortableFolderName;
-#else
             if (Directory.Exists(PortableFolderName))
                 DataFolder = PortableFolderName;
             else
                 DataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NCPanel");
-#endif
         }
 
         public static bool IsPortable { get; }

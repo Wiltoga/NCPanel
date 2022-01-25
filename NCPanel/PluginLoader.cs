@@ -20,11 +20,6 @@ namespace NCPanel
         private const string PluginFolderName = "plugins";
         private SourceList<Plugin> availablePluginsSource;
 
-        static PluginLoader()
-        {
-            PluginsPath = Path.Combine(Environment.CurrentDirectory, PluginFolderName);
-        }
-
         public PluginLoader()
         {
             availablePluginsSource = new SourceList<Plugin>();
@@ -33,7 +28,7 @@ namespace NCPanel
             Refresh();
         }
 
-        private static string PluginsPath { get; }
+        private static string PluginsPath => Path.Combine(DataStorage.DataFolder, PluginFolderName);
 
         public void Refresh()
         {
