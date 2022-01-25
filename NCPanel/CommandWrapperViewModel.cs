@@ -69,6 +69,9 @@ namespace NCPanel
                         {
                             Owner = App.Current.MainWindow
                         };
+                        var wasTop = App.Current.MainWindow.Topmost;
+                        if (wasTop)
+                            App.Current.MainWindow.Topmost = false;
                         if (dialog.ShowDialog() is true)
                         {
                             genericCommand.EndEdit();
@@ -76,6 +79,8 @@ namespace NCPanel
                         }
                         else
                             genericCommand.CancelEdit();
+                        if (wasTop)
+                            App.Current.MainWindow.Topmost = true;
                     })
                 }, this));
                 ContextMenuSource.Add(new GeneratedMenuItemViewModel(new MenuItemViewModel
