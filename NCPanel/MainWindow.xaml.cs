@@ -90,7 +90,7 @@ namespace NCPanel
             };
             timer.Tick += (sender, e) =>
             {
-                if (ViewModel.Open && WindowState != WindowState.Maximized)
+                if (ViewModel.Open && WindowState == WindowState.Normal)
                 {
                     if (GetExtensionMode() == ExtensionMode.None)
                     {
