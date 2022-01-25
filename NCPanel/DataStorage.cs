@@ -40,7 +40,7 @@ namespace NCPanel
                 {
                     WriteIndented = true
                 });
-                using (var writer = new StreamWriter(settingsFile.OpenWrite()))
+                using (var writer = new StreamWriter(new FileStream(settingsFile.FullName, FileMode.Create, FileAccess.Write)))
                 {
                     writer.Write(json);
                     writer.Flush();
@@ -71,7 +71,7 @@ namespace NCPanel
             {
                 WriteIndented = true
             });
-            using (var writer = new StreamWriter(settingsFile.OpenWrite()))
+            using (var writer = new StreamWriter(new FileStream(settingsFile.FullName, FileMode.Create, FileAccess.Write)))
             {
                 writer.Write(json);
                 writer.Flush();
@@ -85,7 +85,7 @@ namespace NCPanel
             var imageFile = imagesDir.CombineFile(name);
             using (var memory = new MemoryStream(image))
             {
-                using (var output = imageFile.OpenWrite())
+                using (var output = new FileStream(imageFile.FullName, FileMode.Create, FileAccess.Write))
                 {
                     memory.CopyTo(output);
                     output.Flush();
