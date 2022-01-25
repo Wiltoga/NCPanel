@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
+	<ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,12 +22,17 @@
     <None Remove="icons\edit.png" />
     <None Remove="icons\grid_layout.png" />
     <None Remove="icons\grid_layout_hover.png" />
+    <None Remove="icons\icon.png" />
     <None Remove="icons\list_layout.png" />
     <None Remove="icons\list_layout_hover.png" />
     <None Remove="icons\new.png" />
     <None Remove="icons\new_hover.png" />
     <None Remove="icons\settings.png" />
     <None Remove="icons\settings_hover.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +47,7 @@
     <Resource Include="icons\edit.png" />
     <Resource Include="icons\grid_layout.png" />
     <Resource Include="icons\grid_layout_hover.png" />
+    <Resource Include="icons\icon.png" />
     <Resource Include="icons\list_layout.png" />
     <Resource Include="icons\list_layout_hover.png" />
     <Resource Include="icons\new.png" />

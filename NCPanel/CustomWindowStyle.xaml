@@ -566,6 +566,9 @@
             Property="TextElement.FontSize"
             Value="14" />
         <Setter
+            Property="Icon"
+            Value="/icon.ico" />
+        <Setter
             Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome
@@ -602,9 +605,10 @@
                             <DockPanel
                                 Margin="0,0,0,16"
                                 Name="titlebar"
-                                Height="32"
                                 DockPanel.Dock="Top">
                                 <StackPanel
+                                    Height="32"
+                                    VerticalAlignment="Top"
                                     TextElement.FontSize="10"
                                     Orientation="Horizontal"
                                     DockPanel.Dock="Right">
@@ -637,9 +641,15 @@
                                         WindowChrome.IsHitTestVisibleInChrome="True"
                                         Style="{StaticResource CloseButton}" />
                                 </StackPanel>
+                                <Image
+                                    VerticalAlignment="Center"
+                                    Margin="16,16,5,5"
+                                    Source="/icon.ico"
+                                    Width="32"
+                                    Height="32" />
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Margin="16,16,0,0"
+                                    Margin="5,16,5,5"
                                     Text="{TemplateBinding Title}"
                                     FontSize="16" />
                             </DockPanel>
