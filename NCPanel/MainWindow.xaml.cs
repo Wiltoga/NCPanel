@@ -41,6 +41,7 @@ namespace NCPanel
             ViewModel.WhenAnyValue(vm => vm.Open).Subscribe(opened =>
             {
                 lockOpenedSizes = true;
+                var mode = GetExtensionMode();
                 var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
                 if (opened)
                 {
@@ -57,33 +58,27 @@ namespace NCPanel
                     Height = 250;
                 }
                 var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
-                if (
-                    middleOfWindow.X <= screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                    && middleOfWindow.Y <= screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
+                switch (mode)
                 {
-                    Left = screen.WorkingArea.Left;
-                    Top = screen.WorkingArea.Top;
-                }
-                else if (
-                    middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                    && middleOfWindow.Y <= screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                {
-                    Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
-                    Top = screen.WorkingArea.Top;
-                }
-                else if (
-                    middleOfWindow.X <= screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                    && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                {
-                    Left = screen.WorkingArea.Left;
-                    Top = screen.WorkingArea.Top + screen.WorkingArea.Height - Height;
-                }
-                else if (
-                    middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                    && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                {
-                    Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
-                    Top = screen.WorkingArea.Top + screen.WorkingArea.Height - Height;
+                    case ExtensionMode.TopLeft:
+                        Left = screen.WorkingArea.Left;
+                        Top = screen.WorkingArea.Top;
+                        break;
+
+                    case ExtensionMode.TopRight:
+                        Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
+                        Top = screen.WorkingArea.Top;
+                        break;
+
+                    case ExtensionMode.BottomLeft:
+                        Left = screen.WorkingArea.Left;
+                        Top = screen.WorkingArea.Top + screen.WorkingArea.Height - Height;
+                        break;
+
+                    case ExtensionMode.BottomRight:
+                        Left = screen.WorkingArea.Left + screen.WorkingArea.Width - Width;
+                        Top = screen.WorkingArea.Top + screen.WorkingArea.Height - Height;
+                        break;
                 }
                 lockOpenedSizes = false;
             });
@@ -96,14 +91,7 @@ namespace NCPanel
             {
                 if (ViewModel.Open && WindowState != WindowState.Maximized)
                 {
-                    var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
-                    var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
-                    var safeArea = new Rect(
-                        screen.WorkingArea.Left + screen.WorkingArea.Width / 3,
-                        screen.WorkingArea.Top + screen.WorkingArea.Height / 3,
-                        screen.WorkingArea.Width / 3,
-                        screen.WorkingArea.Height / 3);
-                    if (safeArea.Contains(middleOfWindow))
+                    if (GetExtensionMode() == ExtensionMode.None)
                     {
                         if (Topmost)
                             Topmost = false;
@@ -115,58 +103,46 @@ namespace NCPanel
                             Topmost = true;
                     }
                     var mousePos = Control.MousePosition;
+                    double distX = 0;
+                    double distY = 0;
                     if (mousePos.X < Left && mousePos.Y < Top)
                     {
-                        var distX = mousePos.X - Left;
-                        var distY = mousePos.Y - Top;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX + distY * distY)
-                            ViewModel.Open = false;
+                        distX = mousePos.X - Left;
+                        distY = mousePos.Y - Top;
                     }
                     else if (mousePos.X > Left + Width && mousePos.Y < Top)
                     {
-                        var distX = Left + Width - mousePos.X;
-                        var distY = mousePos.Y - Top;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX + distY * distY)
-                            ViewModel.Open = false;
+                        distX = Left + Width - mousePos.X;
+                        distY = mousePos.Y - Top;
                     }
                     else if (mousePos.X > Left + Width && mousePos.Y > Top + Height)
                     {
-                        var distX = Left + Width - mousePos.X;
-                        var distY = Top + Height - mousePos.Y;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX + distY * distY)
-                            ViewModel.Open = false;
+                        distX = Left + Width - mousePos.X;
+                        distY = Top + Height - mousePos.Y;
                     }
                     else if (mousePos.X < Left && mousePos.Y > Top + Height)
                     {
-                        var distX = mousePos.X - Left;
-                        var distY = Top + Height - mousePos.Y;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX + distY * distY)
-                            ViewModel.Open = false;
+                        distX = mousePos.X - Left;
+                        distY = Top + Height - mousePos.Y;
                     }
                     else if (mousePos.X < Left)
                     {
-                        var distX = mousePos.X - Left;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX)
-                            ViewModel.Open = false;
+                        distX = mousePos.X - Left;
                     }
                     else if (mousePos.X > Left + Width)
                     {
-                        var distX = Left + Width - mousePos.X;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX)
-                            ViewModel.Open = false;
+                        distX = Left + Width - mousePos.X;
                     }
                     else if (mousePos.Y < Top)
                     {
-                        var distY = mousePos.Y - Top;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distY * distY)
-                            ViewModel.Open = false;
+                        distY = mousePos.Y - Top;
                     }
                     else if (mousePos.Y > Top + Height)
                     {
-                        var distY = Top + Height - mousePos.Y;
-                        if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distY * distY)
-                            ViewModel.Open = false;
+                        distY = Top + Height - mousePos.Y;
                     }
+                    if (MaxCursorDistanceToLeave * MaxCursorDistanceToLeave < distX * distX + distY * distY)
+                        ViewModel.Open = false;
                 }
             };
             timer.Start();
@@ -206,6 +182,25 @@ namespace NCPanel
             ParsePosition();
         }
 
+        private ExtensionMode GetExtensionMode()
+        {
+            var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
+            var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
+            var verticalPercentOffset = Top / (screen.WorkingArea.Height - Height);
+            var horizontalPercentOffset = Left / (screen.WorkingArea.Width - Width);
+            if (verticalPercentOffset > .4f && verticalPercentOffset < .6f
+                && horizontalPercentOffset > .4f && horizontalPercentOffset < .6f)
+                return ExtensionMode.None;
+            else if (verticalPercentOffset <= .5f && horizontalPercentOffset <= .5f)
+                return ExtensionMode.TopLeft;
+            else if (verticalPercentOffset > .5f && horizontalPercentOffset <= .5f)
+                return ExtensionMode.BottomLeft;
+            else if (verticalPercentOffset > .5f && horizontalPercentOffset > .5f)
+                return ExtensionMode.BottomRight;
+            else
+                return ExtensionMode.TopRight;
+        }
+
         private void NewCommandButton_Click(object sender, RoutedEventArgs e)
         {
             var command = new CommandViewModel
@@ -222,36 +217,12 @@ namespace NCPanel
 
         private void ParsePosition()
         {
+            ViewModel.ExtensionMode = GetExtensionMode();
             if (WindowState == WindowState.Maximized)
             {
                 ViewModel.ExtensionMode = ExtensionMode.Maximized;
                 return;
             }
-            var middleOfWindow = new Point(Left + Width / 2, Top + Height / 2);
-            var screen = Screen.FromPoint(new System.Drawing.Point((int)middleOfWindow.X, (int)middleOfWindow.Y));
-            var safeArea = new Rect(
-                screen.WorkingArea.Left + screen.WorkingArea.Width / 3,
-                screen.WorkingArea.Top + screen.WorkingArea.Height / 3,
-                screen.WorkingArea.Width / 3,
-                screen.WorkingArea.Height / 3);
-            if (safeArea.Contains(middleOfWindow))
-                ViewModel.ExtensionMode = ExtensionMode.None;
-            else if (
-                middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                ViewModel.ExtensionMode = ExtensionMode.TopLeft;
-            else if (
-                middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                && middleOfWindow.Y < screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                ViewModel.ExtensionMode = ExtensionMode.TopRight;
-            else if (
-                middleOfWindow.X < screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                ViewModel.ExtensionMode = ExtensionMode.BottomLeft;
-            else if (
-                middleOfWindow.X > screen.WorkingArea.Left + screen.WorkingArea.Width / 2
-                && middleOfWindow.Y > screen.WorkingArea.Top + screen.WorkingArea.Height / 2)
-                ViewModel.ExtensionMode = ExtensionMode.BottomRight;
         }
     }
 }
