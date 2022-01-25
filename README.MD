@@ -26,7 +26,7 @@ By simply creating a `Data` folder next to the .exe, the app will store its data
 
 ## Extensions
 
-The software is fully compatible with plugins (written in C#, .NET 6.0). You will need to create a library project with a dependency to `NCPExtension.dll`. In the .csproj, I recommend tu put :
+The software is fully compatible with plugins (written in C#, .NET 6.0). You will need to create a library project with a dependency to `NCPExtension.dll`. In the .csproj, I recommend to put :
 
 In the `<PropertyGroup>` :
 ```xml
