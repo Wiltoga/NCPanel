@@ -29,6 +29,16 @@ namespace NCPanel
 
         private CommandEditionViewModel ViewModel => (CommandEditionViewModel)DataContext;
 
+        private void DeleteMenuItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItemEditionViewModel)((FrameworkElement)sender).DataContext;
+            foreach (var item in ViewModel.Source.ContextMenu.Where(item => item.Index > menuItem.Source.Index))
+            {
+                --((MenuItemViewModel)item).Index;
+            }
+            ViewModel.Source.ContextMenu.Remove(menuItem.Source);
+        }
+
         private void DraggyRectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var menuItem = (MenuItemEditionViewModel)((FrameworkElement)sender).DataContext;

@@ -116,6 +116,16 @@
                                     Margin="5"
                                     Text="Title :"
                                     VerticalAlignment="Center" />
+                                <Button
+                                    DockPanel.Dock="Right"
+                                    Padding="3"
+                                    Margin="5"
+                                    Click="DeleteMenuItemButton_Click">
+                                    <Image
+                                        Width="20"
+                                        Height="20"
+                                        Source="/icons/delete.png" />
+                                </Button>
                                 <TextBox
                                     Margin="5"
                                     VerticalAlignment="Center"

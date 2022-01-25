@@ -66,7 +66,8 @@ namespace NCPanel
                 {
                     commandLine = CommandLine,
                     image = Image,
-                    title = Title
+                    title = Title,
+                    index = Index
                 };
             }
         }
@@ -78,6 +79,7 @@ namespace NCPanel
                 CommandLine = save.Value.commandLine;
                 Image = save.Value.image;
                 Title = save.Value.title;
+                Index = save.Value.index;
             }
         }
 
@@ -95,6 +97,7 @@ namespace NCPanel
         {
             public string? commandLine;
             public byte[]? image;
+            public int index;
             public string? title;
         }
     }
