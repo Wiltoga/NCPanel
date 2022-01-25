@@ -11,6 +11,6 @@ namespace NCPExtension
         ICommand? Run { get; }
         object? Visual { get; }
 
-        void Init();
+        void Init(InitializationInfo initializationInfo);
     }
 }

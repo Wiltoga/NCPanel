@@ -53,6 +53,7 @@ namespace NCPanel
                             if (constructor is not null)
                             {
                                 var command = (INCPCommand)constructor.Invoke(null);
+                                command.Init(new InitializationInfo(pluginDirInfo));
                                 commands.Add(command);
                             }
                         }

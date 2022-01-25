@@ -114,7 +114,7 @@ namespace NCPanel
             }
         }
 
-        public void Init()
+        public void Init(InitializationInfo initializationInfo)
         {
         }
 

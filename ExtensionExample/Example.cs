@@ -25,8 +25,9 @@ namespace ExtensionExample
 
         public object? Visual => null;
 
-        public void Init()
+        public void Init(InitializationInfo initializationInfo)
         {
+            Console.WriteLine($"plugin location : {initializationInfo.pluginLocation}");
         }
 
         private class Command : ICommand

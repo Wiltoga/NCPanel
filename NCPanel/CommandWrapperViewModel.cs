@@ -28,7 +28,6 @@ namespace NCPanel
         {
             Parent = parent;
             Source = command;
-            command.Init();
             Name = command.Name;
             if (command.ContextMenu is INotifyCollectionChanged)
             {
