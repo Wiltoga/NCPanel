@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using DynamicData.Binding;
 using NCPExtension;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -19,11 +20,15 @@ namespace NCPanel
 
         public MainWindowViewModel()
         {
+            PluginLoader = new PluginLoader();
             Open = true;
             Layout = Layout.Grid;
             ExtensionMode = ExtensionMode.None;
             CommandsSource = new SourceList<CommandWrapperViewModel>();
+            var pluginSelector = PluginLoader.AvailablePluginsConnect.TransformMany(plugin => plugin.Commands.Select(command => new CommandWrapperViewModel(command, this)));
+            pluginSelector.Subscribe();
             CommandsSource.Connect()
+                .Or(pluginSelector)
                 .AutoRefresh(o => o.Name)
                 .Sort(Comparer<CommandWrapperViewModel>.Create((left, right) =>
                 left.Name == right.Name
@@ -31,7 +36,7 @@ namespace NCPanel
                     : (left.Name?.CompareTo(right.Name) ?? -1)))
                 .Bind(out commands)
                 .Subscribe();
-            for (int i = 0; i < 20; ++i)
+            for (int i = 0; i < 4; ++i)
             {
                 CommandViewModel source;
                 CommandsSource.Add(new CommandWrapperViewModel(source = new CommandViewModel
@@ -70,7 +75,6 @@ namespace NCPanel
         }
 
         public IEnumerable<CommandWrapperViewModel> Commands => commands;
-
         public SourceList<CommandWrapperViewModel> CommandsSource { get; }
 
         [Reactive]
@@ -81,5 +85,7 @@ namespace NCPanel
 
         [Reactive]
         public bool Open { get; set; }
+
+        private PluginLoader PluginLoader { get; }
     }
 }

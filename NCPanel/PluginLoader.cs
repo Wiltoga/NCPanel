@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using NCPExtension;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,10 +16,9 @@ namespace NCPanel
 {
     public class PluginLoader
     {
+        public IObservable<IChangeSet<Plugin>> AvailablePluginsConnect;
         private const string PluginFolderName = "plugins";
-        private ReadOnlyObservableCollection<AssemblyName> availablePlugins;
-        private SourceCache<AssemblyName, string> availablePluginsSource;
-        private FileSystemWatcher watcher;
+        private SourceList<Plugin> availablePluginsSource;
 
         static PluginLoader()
         {
@@ -26,39 +27,40 @@ namespace NCPanel
 
         public PluginLoader()
         {
-            availablePluginsSource = new SourceCache<AssemblyName, string>(assembly => assembly.FullName);
-            availablePluginsSource.Connect()
-                .Bind(out availablePlugins)
-                .Subscribe();
+            availablePluginsSource = new SourceList<Plugin>();
+            AvailablePluginsConnect = availablePluginsSource.Connect();
             Directory.CreateDirectory(PluginsPath);
-            watcher = new FileSystemWatcher(PluginsPath)
-            {
-                IncludeSubdirectories = true
-            };
-            watcher.Created += Watcher_Created;
-            watcher.Deleted += Watcher_Deleted;
-            watcher.Renamed += Watcher_Renamed;
-            watcher.EnableRaisingEvents = true;
-            ForceRefresh();
+            Refresh();
         }
-
-        public ReadOnlyObservableCollection<AssemblyName> AvailablePlugins => availablePlugins;
 
         private static string PluginsPath { get; }
 
-        public void ForceRefresh()
+        public void Refresh()
         {
             foreach (var pluginDirInfo in new DirectoryInfo(PluginsPath).GetDirectories())
             {
                 if (ParseFolder(pluginDirInfo) is AssemblyName name)
-                    availablePluginsSource.Edit(updater => updater.AddOrUpdate(name));
+                {
+                    var path = Path.Combine(pluginDirInfo.FullName, $"{name.FullName}.dll");
+                    var loader = new PluginLoadContext(path);
+                    var assembly = loader.LoadFromAssemblyName(name);
+                    var commands = new List<INCPCommand>();
+                    foreach (var exportedType in assembly.ExportedTypes)
+                    {
+                        if (exportedType.GetInterfaces().Contains(typeof(INCPCommand)))
+                        {
+                            var constructor = exportedType.GetConstructor(Type.EmptyTypes);
+                            if (constructor is not null)
+                            {
+                                var command = (INCPCommand)constructor.Invoke(null);
+                                commands.Add(command);
+                            }
+                        }
+                    }
+                    if (!availablePluginsSource.Items.Any(plugin => plugin.Name == name.FullName))
+                        availablePluginsSource.Add(new Plugin(name.FullName, commands));
+                }
             }
-        }
-
-        private static DirectoryInfo GetPluginFolder(string path)
-        {
-            var relativePath = Path.GetRelativePath(PluginsPath, path);
-            return new DirectoryInfo(Path.Combine(PluginsPath, relativePath.Split(Path.DirectorySeparatorChar)[0]));
         }
 
         private AssemblyName? ParseFolder(DirectoryInfo folder)
@@ -72,24 +74,36 @@ namespace NCPanel
                 return null;
         }
 
-        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        private class PluginLoadContext : AssemblyLoadContext
         {
-            if (ParseFolder(GetPluginFolder(e.FullPath)) is AssemblyName name)
-                availablePluginsSource.Edit(updater => updater.AddOrUpdate(name));
-        }
+            private AssemblyDependencyResolver _resolver;
 
-        private void Watcher_Deleted(object sender, FileSystemEventArgs e)
-        {
-            if (AvailablePlugins.FirstOrDefault(name => name.FullName == GetPluginFolder(e.FullPath).Name) is AssemblyName name)
-                availablePluginsSource.Edit(updater => updater.Remove(name));
-        }
+            public PluginLoadContext(string pluginPath)
+            {
+                _resolver = new AssemblyDependencyResolver(pluginPath);
+            }
 
-        private void Watcher_Renamed(object sender, RenamedEventArgs e)
-        {
-            if (AvailablePlugins.FirstOrDefault(name => name.FullName == GetPluginFolder(e.OldFullPath).Name) is AssemblyName name)
-                availablePluginsSource.Remove(name);
-            else if (ParseFolder(GetPluginFolder(e.FullPath)) is AssemblyName addedName)
-                availablePluginsSource.Edit(updater => updater.AddOrUpdate(addedName));
+            protected override Assembly? Load(AssemblyName assemblyName)
+            {
+                var assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
+                if (assemblyPath is not null)
+                {
+                    return LoadFromAssemblyPath(assemblyPath);
+                }
+
+                return null;
+            }
+
+            protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
+            {
+                var libraryPath = _resolver.ResolveUnmanagedDllToPath(unmanagedDllName);
+                if (libraryPath is not null)
+                {
+                    return LoadUnmanagedDllFromPath(libraryPath);
+                }
+
+                return IntPtr.Zero;
+            }
         }
     }
 }

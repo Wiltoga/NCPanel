@@ -13,11 +13,5 @@ namespace NCPanel
     /// </summary>
     public partial class App : Application
     {
-        static App()
-        {
-            PluginLoader = new PluginLoader();
-        }
-
-        public static PluginLoader PluginLoader { get; }
     }
 }

@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NCPExtension\NCPExtension.csproj">
-       <Private>true</Private>
+       <Private>false</Private>
 	   <ExcludeAssets>true</ExcludeAssets>
     </ProjectReference>
   </ItemGroup>
