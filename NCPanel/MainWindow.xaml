@@ -97,6 +97,7 @@
                         <StackPanel
                             Orientation="Vertical">
                             <Button
+                                Click="NewCommandButton_Click"
                                 ToolTip="Create a new button"
                                 Margin="8"
                                 Width="80"

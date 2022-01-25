@@ -70,6 +70,8 @@ namespace NCPanel
 
         public IEnumerable<CommandWrapperViewModel> Commands => commands;
 
+        public SourceList<CommandWrapperViewModel> CommandsSource { get; }
+
         [Reactive]
         public ExtensionMode ExtensionMode { get; set; }
 
@@ -78,7 +80,5 @@ namespace NCPanel
 
         [Reactive]
         public bool Open { get; set; }
-
-        private SourceList<CommandWrapperViewModel> CommandsSource { get; }
     }
 }

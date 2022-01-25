@@ -231,6 +231,8 @@
                             HorizontalAlignment="Center"
                             Padding="6">
                             <Rectangle
+                                Stroke="Gray"
+                                StrokeThickness="1"
                                 Margin="5"
                                 Width="120"
                                 Height="120">

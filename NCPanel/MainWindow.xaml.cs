@@ -1,4 +1,5 @@
-﻿using NCPExtension;
+﻿using DynamicData;
+using NCPExtension;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -203,6 +204,20 @@ namespace NCPanel
         {
             base.OnStateChanged(e);
             ParsePosition();
+        }
+
+        private void NewCommandButton_Click(object sender, RoutedEventArgs e)
+        {
+            var command = new CommandViewModel
+            {
+                Name = "New command"
+            };
+            var dialog = new CommandEdition(command)
+            {
+                Owner = this
+            };
+            if (dialog.ShowDialog() is true)
+                ViewModel.CommandsSource.Add(new CommandWrapperViewModel(command, ViewModel));
         }
 
         private void ParsePosition()
