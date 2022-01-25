@@ -223,7 +223,7 @@
                     <ItemsPanelTemplate>
                         <UniformGrid
                             VerticalAlignment="Top"
-                            Columns="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource ListLayoutColumnConverter}, ConverterParameter=250}"
+                            Columns="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource ListLayoutColumnConverter}, ConverterParameter=300}"
                             IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
@@ -283,6 +283,7 @@
                                     CornerRadius="5"
                                     Background="#8000">
                                     <TextBlock
+                                        TextWrapping="Wrap"
                                         Text="{Binding Path=Source.Name, Mode=OneWay}" />
                                 </Border>
                                 <TextBlock
