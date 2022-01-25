@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace NCPanel
@@ -105,6 +106,7 @@ namespace NCPanel
                     {
                         Source = Utils.ImageFromBytes(imgSource)
                     };
+                    RenderOptions.SetBitmapScalingMode((DependencyObject)Visual, BitmapScalingMode.HighQuality);
                 }
             }
             if (command is INotifyPropertyChanged notifier)
@@ -120,6 +122,7 @@ namespace NCPanel
                             {
                                 Source = Utils.ImageFromBytes(imgSource)
                             };
+                            RenderOptions.SetBitmapScalingMode((DependencyObject)Visual, BitmapScalingMode.HighQuality);
                         }
                     }
                     else if (e.PropertyName == nameof(INCPCommand.Visual))
