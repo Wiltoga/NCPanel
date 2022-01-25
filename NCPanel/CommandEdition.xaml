@@ -278,10 +278,67 @@
             <DockPanel
                 Margin="5"
                 Grid.Column="1">
-                <TextBlock
+                <StackPanel
                     DockPanel.Dock="Top"
-                    Margin="5"
-                    Text="Context menu :" />
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Text="Context menu :" />
+                    <Button
+                        Click="NewMenuItemButton_Click"
+                        ToolTip="Create a new menu item"
+                        Margin="8">
+                        <Rectangle
+                            Height="20"
+                            Width="20"
+                            Margin="5">
+                            <Rectangle.Style>
+                                <Style
+                                    TargetType="Rectangle">
+                                    <Setter
+                                        Property="Fill"
+                                        Value="White" />
+                                    <Setter
+                                        Property="OpacityMask">
+                                        <Setter.Value>
+                                            <VisualBrush
+                                                Viewport="0,0,1,1">
+                                                <VisualBrush.Visual>
+                                                    <Image
+                                                        Stretch="None"
+                                                        Source="/icons/new.png" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                            Value="True">
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource MainColor}" />
+                                            <Setter
+                                                Property="OpacityMask">
+                                                <Setter.Value>
+                                                    <VisualBrush
+                                                        Viewport="0,0,1,1">
+                                                        <VisualBrush.Visual>
+                                                            <Image
+                                                                Stretch="None"
+                                                                Source="/icons/new_hover.png" />
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
                 <ContentControl
                     Background="#01000000"
                     local:DragDropExtension.ScrollOnDragDrop="True">

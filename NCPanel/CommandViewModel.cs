@@ -76,6 +76,10 @@ namespace NCPanel
                     name = Name,
                     contextMenu = ContextMenu.ToArray()
                 };
+                foreach (var menuitem in ContextMenu)
+                {
+                    ((MenuItemViewModel)menuitem).BeginEdit();
+                }
             }
         }
 
@@ -91,6 +95,7 @@ namespace NCPanel
                 foreach (var item in save.Value.contextMenu)
                 {
                     ContextMenu.Add(item);
+                    ((MenuItemViewModel)item).CancelEdit();
                 }
             }
         }
@@ -103,6 +108,10 @@ namespace NCPanel
         public void EndEdit()
         {
             save = null;
+            foreach (var menuitem in ContextMenu)
+            {
+                ((MenuItemViewModel)menuitem).EndEdit();
+            }
         }
 
         public void Init()

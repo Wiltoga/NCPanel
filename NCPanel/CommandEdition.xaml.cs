@@ -157,6 +157,15 @@ namespace NCPanel
             }
         }
 
+        private void NewMenuItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Source.ContextMenu.Add(new MenuItemViewModel
+            {
+                Title = "New menu item",
+                Index = ViewModel.Source.ContextMenu.Max(mi => mi.Index) + 1,
+            });
+        }
+
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;

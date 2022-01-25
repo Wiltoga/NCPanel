@@ -5,6 +5,7 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -29,6 +30,42 @@ namespace NCPanel
                     : (left.Source.Name?.CompareTo(right.Source.Name) ?? -1)))
                 .Bind(out commands)
                 .Subscribe();
+            for (int i = 0; i < 20; ++i)
+            {
+                CommandViewModel source;
+                CommandsSource.Add(new CommandWrapperViewModel(source = new CommandViewModel
+                {
+                    Name = "test" + i,
+                    Run = ReactiveCommand.Create(() => Console.WriteLine("test")),
+                    Description = "some description",
+                    //Image = File.ReadAllBytes("icon.png")
+                }, this));
+                source.ContextMenu.Add(new MenuItemViewModel
+                {
+                    Title = "test",
+                    //Image = File.ReadAllBytes("icon.png"),
+                    CommandLine = "icon.png",
+                    Index = 0
+                });
+                source.ContextMenu.Add(new MenuItemViewModel
+                {
+                    Title = "test2",
+                    CommandLine = "icon.png",
+                    Index = 1
+                });
+                source.ContextMenu.Add(new MenuItemViewModel
+                {
+                    Title = "test3",
+                    CommandLine = "icon.png",
+                    Index = 3
+                });
+                source.ContextMenu.Add(new MenuItemViewModel
+                {
+                    Title = "wololo",
+                    CommandLine = "icon.png",
+                    Index = 2
+                });
+            }
         }
 
         public IEnumerable<CommandWrapperViewModel> Commands => commands;
