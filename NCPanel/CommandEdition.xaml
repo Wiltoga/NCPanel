@@ -129,7 +129,7 @@
                                 <TextBox
                                     Margin="5"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Path=Source.Title, Mode=TwoWay}" />
+                                    Text="{Binding Path=Source.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
                             <Separator
                                 Margin="5" />
@@ -178,7 +178,7 @@
                                 </StackPanel>
                                 <TextBox
                                     Margin="5"
-                                    Text="{Binding Path=Source.CommandLine, Mode=TwoWay}" />
+                                    Text="{Binding Path=Source.CommandLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
                         </StackPanel>
                     </DockPanel>
@@ -254,7 +254,7 @@
                             Text="Name :" />
                         <TextBox
                             Margin="5"
-                            Text="{Binding Path=Source.Name, Mode=TwoWay}" />
+                            Text="{Binding Path=Source.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Separator
                             Margin="5" />
                         <StackPanel
@@ -272,7 +272,7 @@
                         </StackPanel>
                         <TextBox
                             Margin="5"
-                            Text="{Binding Path=Source.CommandLine, Mode=TwoWay}" />
+                            Text="{Binding Path=Source.CommandLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Separator
                             Margin="5" />
                         <TextBlock
@@ -283,7 +283,7 @@
                             TextWrapping="Wrap"
                             MinLines="3"
                             AcceptsReturn="True"
-                            Text="{Binding Path=Source.Description, Mode=TwoWay}" />
+                            Text="{Binding Path=Source.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </ScrollViewer>
             </DockPanel>

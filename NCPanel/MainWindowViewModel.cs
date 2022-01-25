@@ -24,10 +24,11 @@ namespace NCPanel
             ExtensionMode = ExtensionMode.None;
             CommandsSource = new SourceList<CommandWrapperViewModel>();
             CommandsSource.Connect()
+                .AutoRefresh(o => o.Name)
                 .Sort(Comparer<CommandWrapperViewModel>.Create((left, right) =>
-                left.Source.Name == right.Source.Name
+                left.Name == right.Name
                     ? 0
-                    : (left.Source.Name?.CompareTo(right.Source.Name) ?? -1)))
+                    : (left.Name?.CompareTo(right.Name) ?? -1)))
                 .Bind(out commands)
                 .Subscribe();
             for (int i = 0; i < 20; ++i)

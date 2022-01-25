@@ -29,6 +29,7 @@ namespace NCPanel
             Parent = parent;
             Source = command;
             command.Init();
+            Name = command.Name;
             if (command.ContextMenu is INotifyCollectionChanged)
             {
                 var toObservableMethod = typeof(ObservableCollectionEx).GetMethods().Where(m =>
@@ -79,7 +80,11 @@ namespace NCPanel
                 {
                     Title = "Delete",
                     Image = Properties.Resources.delete,
-                    Index = 2
+                    Index = 2,
+                    Run = ReactiveCommand.Create(() =>
+                    {
+                        Parent.CommandsSource.Remove(this);
+                    })
                 }, this));
             }
             Visual = command.Visual;
@@ -113,11 +118,19 @@ namespace NCPanel
                     {
                         Visual = command.Visual;
                     }
+                    else if (e.PropertyName == nameof(INCPCommand.Name))
+                    {
+                        Name = command.Name;
+                    }
                 };
             }
         }
 
         public IEnumerable<MenuItemWrapperViewModel> ContextMenu => contextMenu;
+
+        [Reactive]
+        public string? Name { get; private set; }
+
         public MainWindowViewModel Parent { get; }
         public INCPCommand Source { get; }
 

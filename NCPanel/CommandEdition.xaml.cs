@@ -172,7 +172,9 @@ namespace NCPanel
             ViewModel.Source.ContextMenu.Add(new MenuItemViewModel
             {
                 Title = "New menu item",
-                Index = ViewModel.Source.ContextMenu.Max(mi => mi.Index) + 1,
+                Index = ViewModel.Source.ContextMenu.Any()
+                    ? ViewModel.Source.ContextMenu.Max(mi => mi.Index) + 1
+                    : 0
             });
         }
 
