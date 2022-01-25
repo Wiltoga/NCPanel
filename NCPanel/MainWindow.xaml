@@ -13,10 +13,6 @@
         Topmost="True"
         WindowStartupLocation="CenterScreen"
         local:CustomWindowStyle.HideTitleBar="{Binding Open, Converter={local:ReverseBoolConverter}}">
-    <Window.DataContext>
-        <local:MainWindowViewModel
-            d:Open="True" />
-    </Window.DataContext>
     <Window.Resources>
         <local:EqualsConverter
             x:Key="EqualsConverter" />

@@ -74,6 +74,7 @@ namespace NCPanel
             if (dialog.ShowDialog() is true)
             {
                 ViewModel.Source.Image = await File.ReadAllBytesAsync(dialog.FileName);
+                ViewModel.Source.IconFile = null;
             }
         }
 
@@ -90,6 +91,7 @@ namespace NCPanel
             if (dialog.ShowDialog() is true)
             {
                 menuItem.Source.CommandLine = dialog.FileName;
+                menuItem.Source.IconFile = null;
             }
         }
 

@@ -6,6 +6,7 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -18,7 +19,7 @@ namespace NCPanel
     {
         private ReadOnlyObservableCollection<CommandWrapperViewModel> commands;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(Data data)
         {
             PluginLoader = new PluginLoader();
             Open = true;
@@ -36,45 +37,69 @@ namespace NCPanel
                     : (left.Name?.CompareTo(right.Name) ?? -1)))
                 .Bind(out commands)
                 .Subscribe();
-            for (int i = 0; i < 4; ++i)
+            Layout = data.Layout;
+            foreach (var command in data.Commands)
             {
-                CommandViewModel source;
-                CommandsSource.Add(new CommandWrapperViewModel(source = new CommandViewModel
+                var loadedCommand = new CommandViewModel
                 {
-                    Name = "test" + i,
-                    Run = ReactiveCommand.Create(() => Console.WriteLine("test")),
-                    Description = "some description",
-                    //Image = File.ReadAllBytes("icon.png")
-                }, this));
-                source.ContextMenu.Add(new MenuItemViewModel
+                    CommandLine = command.CommandLine,
+                    Description = command.Description,
+                    IconFile = command.IconName,
+                    Name = command.Name,
+                    Run = ReactiveCommand.Create(() =>
+                    {
+                        try
+                        {
+                            new Process
+                            {
+                                StartInfo = new ProcessStartInfo(command.CommandLine ?? "")
+                                {
+                                    UseShellExecute = true
+                                }
+                            }.Start();
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    })
+                };
+                if (loadedCommand.IconFile is not null)
+                    loadedCommand.Image = DataStorage.LoadImage(loadedCommand.IconFile);
+                foreach (var menuitem in command.ContextMenu)
                 {
-                    Title = "test",
-                    //Image = File.ReadAllBytes("icon.png"),
-                    CommandLine = "icon.png",
-                    Index = 0
-                });
-                source.ContextMenu.Add(new MenuItemViewModel
-                {
-                    Title = "test2",
-                    CommandLine = "icon.png",
-                    Index = 1
-                });
-                source.ContextMenu.Add(new MenuItemViewModel
-                {
-                    Title = "test3",
-                    CommandLine = "icon.png",
-                    Index = 3
-                });
-                source.ContextMenu.Add(new MenuItemViewModel
-                {
-                    Title = "wololo",
-                    CommandLine = "icon.png",
-                    Index = 2
-                });
+                    var loadedMenuItem = new MenuItemViewModel
+                    {
+                        CommandLine = menuitem.CommandLine,
+                        IconFile = menuitem.IconName,
+                        Index = menuitem.Index,
+                        Title = menuitem.Title,
+                        Run = ReactiveCommand.Create(() =>
+                        {
+                            try
+                            {
+                                new Process
+                                {
+                                    StartInfo = new ProcessStartInfo(menuitem.CommandLine ?? "")
+                                    {
+                                        UseShellExecute = true
+                                    }
+                                }.Start();
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        })
+                    };
+                    if (loadedMenuItem.IconFile is not null)
+                        loadedMenuItem.Image = DataStorage.LoadImage(loadedMenuItem.IconFile);
+                    loadedCommand.ContextMenu.Add(loadedMenuItem);
+                }
+                CommandsSource.Add(new CommandWrapperViewModel(loadedCommand, this));
             }
         }
 
         public IEnumerable<CommandWrapperViewModel> Commands => commands;
+
         public SourceList<CommandWrapperViewModel> CommandsSource { get; }
 
         [Reactive]
@@ -87,5 +112,40 @@ namespace NCPanel
         public bool Open { get; set; }
 
         private PluginLoader PluginLoader { get; }
+
+        public Data Export()
+        {
+            return new Data(Layout, CommandsSource.Items
+                .Select(command =>
+                {
+                    var viewModelCommand = (CommandViewModel)command.Source;
+                    if (viewModelCommand.IconFile is null && viewModelCommand.Image is not null)
+                    {
+                        viewModelCommand.IconFile = Guid.NewGuid().ToString();
+                        DataStorage.SaveImage(viewModelCommand.Image, viewModelCommand.IconFile);
+                    }
+                    return new CommandData(
+                        command.Source.Name,
+                        command.Source.Description,
+                        viewModelCommand.CommandLine,
+                        viewModelCommand.IconFile,
+                        command.Source.ContextMenu?
+                            .Select(menuitem =>
+                            {
+                                var viewModelMenuItem = (MenuItemViewModel)menuitem;
+                                if (viewModelMenuItem.IconFile is null && viewModelMenuItem.Image is not null)
+                                {
+                                    viewModelMenuItem.IconFile = Guid.NewGuid().ToString();
+                                    DataStorage.SaveImage(viewModelMenuItem.Image, viewModelMenuItem.IconFile);
+                                }
+                                return new MenuItemData(
+                                    menuitem.Title,
+                                    viewModelMenuItem.CommandLine,
+                                    viewModelMenuItem.IconFile,
+                                    viewModelMenuItem.Index);
+                            }).ToArray()
+                            ?? Array.Empty<MenuItemData>());
+                }).ToArray());
+        }
     }
 }

@@ -44,6 +44,8 @@ namespace NCPanel
         [Reactive]
         public string? CommandLine { get; set; }
 
+        public string? IconFile { get; set; }
+
         [Reactive]
         public byte[]? Image { get; set; }
 
@@ -67,7 +69,8 @@ namespace NCPanel
                     commandLine = CommandLine,
                     image = Image,
                     title = Title,
-                    index = Index
+                    index = Index,
+                    icon = IconFile
                 };
             }
         }
@@ -80,6 +83,7 @@ namespace NCPanel
                 Image = save.Value.image;
                 Title = save.Value.title;
                 Index = save.Value.index;
+                IconFile = save.Value.icon;
             }
         }
 
@@ -96,6 +100,7 @@ namespace NCPanel
         private struct Saved
         {
             public string? commandLine;
+            public string? icon;
             public byte[]? image;
             public int index;
             public string? title;

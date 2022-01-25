@@ -9,10 +9,12 @@ namespace NCPExtension
     public readonly struct InitializationInfo
     {
         public readonly DirectoryInfo pluginLocation;
+        public readonly bool portable;
 
-        public InitializationInfo(DirectoryInfo pluginLocation)
+        public InitializationInfo(DirectoryInfo pluginLocation, bool portable)
         {
             this.pluginLocation = pluginLocation;
+            this.portable = portable;
         }
     }
 }

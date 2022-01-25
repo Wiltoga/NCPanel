@@ -34,6 +34,21 @@ namespace NCPanel
         public static IComparer<INCPMenuItem> MenuItemComparer { get; }
         public static IComparer<MenuItemWrapperViewModel> MenuItemWrapperComparer { get; }
 
+        public static DirectoryInfo Combine(this DirectoryInfo source, params string[] paths)
+        {
+            return new DirectoryInfo(Path.Combine(new[] { source.FullName }.Concat(paths).ToArray()));
+        }
+
+        public static FileInfo CombineFile(this DirectoryInfo source, params string[] paths)
+        {
+            return new FileInfo(Path.Combine(new[] { source.FullName }.Concat(paths).ToArray()));
+        }
+
+        public static DirectoryInfo Create(this DirectoryInfo source, params string[] paths)
+        {
+            return Directory.CreateDirectory(Path.Combine(new[] { source.FullName }.Concat(paths).ToArray()));
+        }
+
         public static ImageSource ImageFromBytes(byte[] imgSource)
         {
             var image = new BitmapImage();

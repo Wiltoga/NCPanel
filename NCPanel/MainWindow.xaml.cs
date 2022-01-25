@@ -31,6 +31,7 @@ namespace NCPanel
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel(DataStorage.Load());
             lockOpenedSizes = false;
             OpenedWith = Width;
             OpenedHeight = Height;
@@ -153,6 +154,12 @@ namespace NCPanel
 
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            DataStorage.Save(ViewModel.Export());
+        }
+
         protected override void OnLocationChanged(EventArgs e)
         {
             base.OnLocationChanged(e);
@@ -212,7 +219,10 @@ namespace NCPanel
                 Owner = this
             };
             if (dialog.ShowDialog() is true)
+            {
                 ViewModel.CommandsSource.Add(new CommandWrapperViewModel(command, ViewModel));
+                DataStorage.Save(ViewModel.Export());
+            }
         }
 
         private void ParsePosition()

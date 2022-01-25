@@ -47,11 +47,12 @@ namespace NCPanel
         public string? CommandLine { get; set; }
 
         IEnumerable<INCPMenuItem>? INCPCommand.ContextMenu => ContextMenu;
-
         public ObservableCollection<INCPMenuItem> ContextMenu { get; }
 
         [Reactive]
         public string? Description { get; set; }
+
+        public string? IconFile { get; set; }
 
         [Reactive]
         public byte[]? Image { get; set; }
@@ -74,7 +75,8 @@ namespace NCPanel
                     description = Description,
                     image = Image,
                     name = Name,
-                    contextMenu = ContextMenu.ToArray()
+                    contextMenu = ContextMenu.ToArray(),
+                    icon = IconFile
                 };
                 foreach (var menuitem in ContextMenu)
                 {
@@ -91,6 +93,7 @@ namespace NCPanel
                 Description = save.Value.description;
                 Image = save.Value.image;
                 Name = save.Value.name;
+                IconFile = save.Value.icon;
                 ContextMenu.Clear();
                 foreach (var item in save.Value.contextMenu)
                 {
@@ -123,6 +126,7 @@ namespace NCPanel
             public string? commandLine;
             public INCPMenuItem[] contextMenu;
             public string? description;
+            public string? icon;
             public byte[]? image;
             public string? name;
         }

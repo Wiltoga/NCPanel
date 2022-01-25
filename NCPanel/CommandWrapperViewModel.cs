@@ -70,7 +70,10 @@ namespace NCPanel
                             Owner = App.Current.MainWindow
                         };
                         if (dialog.ShowDialog() is true)
+                        {
                             genericCommand.EndEdit();
+                            DataStorage.Save(Parent.Export());
+                        }
                         else
                             genericCommand.CancelEdit();
                     })
@@ -83,6 +86,7 @@ namespace NCPanel
                     Run = ReactiveCommand.Create(() =>
                     {
                         Parent.CommandsSource.Remove(this);
+                        DataStorage.Save(Parent.Export());
                     })
                 }, this));
             }
