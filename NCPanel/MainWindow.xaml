@@ -28,6 +28,7 @@
                             DockPanel.Dock="Bottom"
                             Orientation="Vertical">
                             <Button
+                                Visibility="Collapsed"
                                 ToolTip="Open settings"
                                 Margin="8"
                                 Width="80"
