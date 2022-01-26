@@ -148,7 +148,8 @@ namespace IdikwaExtension
             StartInfo = new ProcessStartInfo(ExeLocation ?? "")
             {
                 UseShellExecute = false,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
             }
         };
 
