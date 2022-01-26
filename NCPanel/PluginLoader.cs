@@ -48,7 +48,7 @@ namespace NCPanel
                             if (constructor is not null)
                             {
                                 var command = (INCPCommand)constructor.Invoke(null);
-                                command.Init(new InitializationInfo(pluginDirInfo, DataStorage.IsPortable));
+                                command.Init(new InitializationInfo(pluginDirInfo, DataStorage.IsPortable, App.UIDispatcher));
                                 commands.Add(command);
                             }
                         }

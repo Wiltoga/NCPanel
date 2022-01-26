@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace NCPanel
 {
-    public class MainWindowViewModel : ReactiveObject
+    public class MainWindowViewModel : ReactiveObject, IDisposable
     {
         private ReadOnlyObservableCollection<CommandWrapperViewModel> commands;
 
@@ -112,6 +112,14 @@ namespace NCPanel
         public bool Open { get; set; }
 
         private PluginLoader PluginLoader { get; }
+
+        public void Dispose()
+        {
+            foreach (var command in Commands)
+            {
+                command.Dispose();
+            }
+        }
 
         public Data Export()
         {

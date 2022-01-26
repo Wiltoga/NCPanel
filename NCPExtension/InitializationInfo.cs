@@ -20,11 +20,16 @@ namespace NCPExtension
          * True if the app is currently in portable mode.
          */
         public readonly bool portable;
+        /**
+         * Dispatcher of the main UI thread
+         */
+        public readonly IDispatcher uiDispatcher;
 
-        public InitializationInfo(DirectoryInfo pluginLocation, bool portable)
+        public InitializationInfo(DirectoryInfo pluginLocation, bool portable, IDispatcher uiDispatcher)
         {
             this.pluginLocation = pluginLocation;
             this.portable = portable;
+            this.uiDispatcher = uiDispatcher;
         }
     }
 }

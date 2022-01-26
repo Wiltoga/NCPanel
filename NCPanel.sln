@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCPanel", "NCPanel\NCPanel.csproj", "{53F375F8-5417-493E-B56E-52A41F214694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NCPanel", "NCPanel\NCPanel.csproj", "{53F375F8-5417-493E-B56E-52A41F214694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCPExtension", "NCPExtension\NCPExtension.csproj", "{F98853D9-1E5B-484E-AD8D-8AD8C55EF195}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NCPExtension", "NCPExtension\NCPExtension.csproj", "{F98853D9-1E5B-484E-AD8D-8AD8C55EF195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionExample", "ExtensionExample\ExtensionExample.csproj", "{824FB544-32E2-443F-8E85-31B78EC74B83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionExample", "ExtensionExample\ExtensionExample.csproj", "{824FB544-32E2-443F-8E85-31B78EC74B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdikwaExtension", "IdikwaExtension\IdikwaExtension.csproj", "{6C829D67-07EB-48D9-ABC2-0B5926B68C9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{824FB544-32E2-443F-8E85-31B78EC74B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{824FB544-32E2-443F-8E85-31B78EC74B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{824FB544-32E2-443F-8E85-31B78EC74B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C829D67-07EB-48D9-ABC2-0B5926B68C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C829D67-07EB-48D9-ABC2-0B5926B68C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C829D67-07EB-48D9-ABC2-0B5926B68C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C829D67-07EB-48D9-ABC2-0B5926B68C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

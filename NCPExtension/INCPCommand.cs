@@ -6,7 +6,7 @@ namespace NCPExtension
      * Interface to create a custom command. Implements this to be displayed in NCPanel
      */
 
-    public interface INCPCommand
+    public interface INCPCommand : IDisposable
     {
         /**
          * The list of menuitems contained in the context menu (right click) of the command
