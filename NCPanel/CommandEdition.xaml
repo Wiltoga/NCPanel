@@ -152,6 +152,7 @@
                                                 Viewport="0,0,1,1">
                                                 <VisualBrush.Visual>
                                                     <Image
+                                                        RenderOptions.BitmapScalingMode="HighQuality"
                                                         Source="{Binding Path=Icon}" />
                                                 </VisualBrush.Visual>
                                             </VisualBrush>
@@ -241,6 +242,7 @@
                                         Viewport="0,0,1,1">
                                         <VisualBrush.Visual>
                                             <Image
+                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                 Source="{Binding Path=Icon}" />
                                         </VisualBrush.Visual>
                                     </VisualBrush>
