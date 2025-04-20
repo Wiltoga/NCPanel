@@ -2,13 +2,9 @@
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NCPanel
@@ -21,24 +17,33 @@ namespace NCPanel
         public MenuItemViewModel()
         {
             subscriber = this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
-            Run = cmd is not null
-                ? ReactiveCommand.Create(() =>
+            {
+                var parts = cmd?.Split(' ');
+                if (parts is null or { Length: 0 })
+                {
+                    Run = null;
+                    return;
+                }
+                var executable = parts[0];
+                var arguments = string.Join(" ", parts.Skip(1));
+                Run = ReactiveCommand.Create(() =>
                 {
                     try
                     {
                         new Process
                         {
-                            StartInfo = new ProcessStartInfo(cmd)
+                            StartInfo = new ProcessStartInfo(executable)
                             {
-                                UseShellExecute = true
+                                UseShellExecute = true,
+                                Arguments = arguments,
                             }
                         }.Start();
                     }
                     catch (Exception)
                     {
                     }
-                })
-                : null);
+                });
+            });
         }
 
         [Reactive]

@@ -7,9 +7,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NCPanel
@@ -23,24 +20,33 @@ namespace NCPanel
         {
             ContextMenu = new ObservableCollection<INCPMenuItem>();
             subscriber = this.WhenAnyValue(o => o.CommandLine).Subscribe(cmd =>
-            Run = cmd is not null
-                ? ReactiveCommand.Create(() =>
+            {
+                var parts = cmd?.Split(' ');
+                if (parts is null or { Length: 0 })
                 {
-                    try
+                    Run = null;
+                    return;
+                }
+                var executable = parts[0];
+                var arguments = string.Join(" ", parts.Skip(1));
+                Run = ReactiveCommand.Create(() =>
                     {
-                        new Process
+                        try
                         {
-                            StartInfo = new ProcessStartInfo(cmd)
+                            new Process
                             {
-                                UseShellExecute = true
-                            }
-                        }.Start();
-                    }
-                    catch (Exception)
-                    {
-                    }
-                })
-                : null);
+                                StartInfo = new ProcessStartInfo(executable)
+                                {
+                                    UseShellExecute = true,
+                                    Arguments = arguments,
+                                }
+                            }.Start();
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    });
+            });
         }
 
         [Reactive]

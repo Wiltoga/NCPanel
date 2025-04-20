@@ -25,6 +25,11 @@ namespace ExtensionExample
 
         public object? Visual => null;
 
+        public void Dispose()
+        {
+            
+        }
+
         public void Init(InitializationInfo initializationInfo)
         {
             Console.WriteLine($"plugin location : {initializationInfo.pluginLocation}");

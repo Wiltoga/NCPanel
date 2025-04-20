@@ -1,17 +1,11 @@
 ﻿using DynamicData;
-using DynamicData.Binding;
-using NCPExtension;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NCPanel
 {
@@ -46,22 +40,6 @@ namespace NCPanel
                     Description = command.Description,
                     IconFile = command.IconName,
                     Name = command.Name,
-                    Run = ReactiveCommand.Create(() =>
-                    {
-                        try
-                        {
-                            new Process
-                            {
-                                StartInfo = new ProcessStartInfo(command.CommandLine ?? "")
-                                {
-                                    UseShellExecute = true
-                                }
-                            }.Start();
-                        }
-                        catch (Exception)
-                        {
-                        }
-                    })
                 };
                 if (loadedCommand.IconFile is not null)
                     loadedCommand.Image = DataStorage.LoadImage(loadedCommand.IconFile);
@@ -73,22 +51,6 @@ namespace NCPanel
                         IconFile = menuitem.IconName,
                         Index = menuitem.Index,
                         Title = menuitem.Title,
-                        Run = ReactiveCommand.Create(() =>
-                        {
-                            try
-                            {
-                                new Process
-                                {
-                                    StartInfo = new ProcessStartInfo(menuitem.CommandLine ?? "")
-                                    {
-                                        UseShellExecute = true
-                                    }
-                                }.Start();
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        })
                     };
                     if (loadedMenuItem.IconFile is not null)
                         loadedMenuItem.Image = DataStorage.LoadImage(loadedMenuItem.IconFile);
